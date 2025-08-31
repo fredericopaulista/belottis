@@ -109,17 +109,12 @@ class CreateCandidatosTable extends Migration
                 'default'    => 'novo',
                 'null'       => false,
             ],
-            'criado_em' => [
+            'data_cadastro' => [
                 'type'       => 'DATETIME',
                 'null'       => true,
                 'default'    => null,
             ],
-            'atualizado_em' => [
-                'type'       => 'DATETIME',
-                'null'       => true,
-                'default'    => null,
-            ],
-            'deletado_em' => [
+            'data_atualizacao' => [
                 'type'       => 'DATETIME',
                 'null'       => true,
                 'default'    => null,
