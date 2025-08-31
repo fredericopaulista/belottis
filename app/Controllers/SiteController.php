@@ -88,10 +88,10 @@ class SiteController extends BaseController
 
         $email->initialize($config);
 
-        $email->setFrom('teste@bh.emp.br', $this->request->getGetPost('name'));
-        $email->setTo('contato@advogadocontagem.com.br');
+        $email->setFrom('contato@advogadocontagem.com.br', $this->request->getGetPost('name'));
+        $email->setTo('fredericopaulista02@gmail.com');
         $email->setReplyTo('contato@belottis.com.br', 'Belottis Estágio');
-        // $email->setCC('another@another-example.com');
+         $email->setCC('fredericopaulista02@gmail.com');
         // $email->setBCC('them@their-example.com');
 
         $email->setSubject($this->request->getGetPost('subject'));
