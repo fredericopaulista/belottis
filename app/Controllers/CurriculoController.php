@@ -138,22 +138,22 @@ class CurriculoController extends Controller
 
             $config = [
                 'protocol' => 'smtp',
-                'SMTPHost' => 'sandbox.smtp.mailtrap.io',
-                'SMTPUser' => 'a5e973d50971fb',
-                'SMTPPass' => '6b53f328a51264',
-                'SMTPPort' => 2525,
-                'SMTPCrypto' => 'tls',
-                'wordWrap' => true,
-                'mailType' => 'html',
-                'charset'  => 'utf-8',
-                'newline'  => "\r\n"
-            ];
+                 'SMTPHost' => 'mail.advogadocontagem.com.br',
+            'SMTPUser' => 'contato@advogadocontagem.com.br',
+            'SMTPPass' => 'Davi2014!',
+            'SMTPPort' => 465,
+            'wordWrap' => true,
+            'mailType' => 'html',
+            'charset'  => 'utf-8',
+            'newline'  => "\r\n"
+        ];
 
-            $email->initialize($config);
+        $email->initialize($config);
 
-            $email->setFrom('rh@belottis.com.br', 'Sistema Belottis RH');
-            $email->setReplyTo($dados['email'], $dados['nome']);
-            $email->setTo('fredericopaulista@gmail.com');
+        $email->setFrom('contato@advogadocontagem.com.br', $this->request->getGetPost('name'));
+        $email->setTo('fredericopaulista02@gmail.com');
+        $email->setReplyTo('contato@belottis.com.br', 'Belottis Estágio');
+        $email->setCC('fredericopaulista@gmail.com');
             $email->setSubject('Currículo ' . ($acao == 'atualizado' ? 'Atualizado' : 'Recebido') . ' - ' . $dados['nome']);
             $email->setMessage($template);
 

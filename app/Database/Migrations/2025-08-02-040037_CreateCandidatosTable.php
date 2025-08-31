@@ -10,107 +10,127 @@ class CreateCandidatosTable extends Migration
     public function up()
     {
         $this->forge->addField([
+            $this->forge->addField([
             'id' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-                'auto_increment' => true
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+                'auto_increment' => true,
             ],
-            'cargo' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100',
-                'null' => false
+            'nome' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => false,
             ],
-            'empresa' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100',
-                'null' => false
+            'email' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => false,
+            ],
+            'telefone' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '20',
+                'null'       => true,
+            ],
+            'formacao_academica' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true,
+            ],
+            'curso' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true,
+            ],
+            'ano_conclusao' => [
+                'type'       => 'YEAR',
+                'constraint' => 4,
+                'null'       => true,
+            ],
+            'linkedin' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true,
             ],
             'cidade' => [
-                'type' => 'VARCHAR',
-                'constraint' => '50',
-                'null' => false
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+                'null'       => true,
+            ],
+            'data_nascimento' => [
+                'type'       => 'DATE',
+                'null'       => true,
             ],
             'estado' => [
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'constraint' => '2',
-                'null' => false
+                'null'       => true,
             ],
-            'tipo_contratacao' => [
-                'type' => 'VARCHAR',
-                'constraint' => '20',
-                'null' => false
+            'portfolio' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true,
             ],
-            'modalidade' => [
-                'type' => 'VARCHAR',
-                'constraint' => '20',
-                'null' => false
+            'instituicao' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true,
             ],
-            'descricao' => [
+            'experiencia_profissional' => [
                 'type' => 'TEXT',
-                'null' => false
+                'null' => true,
             ],
-            'salario_min' => [
-                'type' => 'DECIMAL',
-                'constraint' => '10,2',
-                'null' => true
-            ],
-            'salario_max' => [
-                'type' => 'DECIMAL',
-                'constraint' => '10,2',
-                'null' => true
-            ],
-            'data_publicacao' => [
-                'type' => 'DATETIME',
-                'null' => false
-            ],
-            'requisitos' => [
+            'habilidades_competencias' => [
                 'type' => 'TEXT',
-                'null' => true
+                'null' => true,
             ],
-            'beneficios' => [
+            'nome_arquivo_curriculo' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true,
+            ],
+            'caminho_arquivo' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true,
+            ],
+            'carta_apresentacao' => [
                 'type' => 'TEXT',
-                'null' => true
+                'null' => true,
             ],
-            'nivel_experiencia' => [
-                'type' => 'VARCHAR',
+            'ip_candidato' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '45',
+                'null'       => true,
+            ],
+            'status' => [
+                'type'       => 'VARCHAR',
                 'constraint' => '20',
-                'null' => true
+                'default'    => 'novo',
+                'null'       => false,
             ],
-            'setor' => [
-                'type' => 'VARCHAR',
-                'constraint' => '50',
-                'null' => true
+            'criado_em' => [
+                'type'       => 'DATETIME',
+                'null'       => true,
+                'default'    => null,
             ],
-            'quantidade_vagas' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'default' => 1
+            'atualizado_em' => [
+                'type'       => 'DATETIME',
+                'null'       => true,
+                'default'    => null,
             ],
-            'prazo_inscricao' => [
-                'type' => 'DATETIME',
-                'null' => true
+            'deletado_em' => [
+                'type'       => 'DATETIME',
+                'null'       => true,
+                'default'    => null,
             ],
-            'ativo' => [
-                'type' => 'TINYINT',
-                'constraint' => 1,
-                'default' => 1
-            ],
-            'created_at' => [
-                'type' => 'DATETIME',
-                'null' => true
-            ],
-            'updated_at' => [
-                'type' => 'DATETIME',
-                'null' => true
-            ],
-            'deleted_at' => [
-                'type' => 'DATETIME',
-                'null' => true
-            ]
         ]);
-        
+
         $this->forge->addKey('id', true);
+        $this->forge->addKey('email');
+        $this->forge->addKey('status');
+        $this->forge->addKey('criado_em');
+        
         $this->forge->createTable('candidatos');
     }
 
