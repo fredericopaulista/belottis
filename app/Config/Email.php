@@ -6,7 +6,7 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail  = 'contato@belottis.com.br';
+    public string $fromEmail  = 'teste@bh.emp.br';
     public string $fromName   = 'Belottis Estágio ';
     public string $recipients = '';
 
@@ -28,22 +28,22 @@ class Email extends BaseConfig
     /**
      * SMTP Server Hostname
      */
-    public string $SMTPHost = 'sandbox.smtp.mailtrap.io';
+    public string $SMTPHost = 'bh.emp.br';
 
     /**
      * SMTP Username
      */
-    public string $SMTPUser = 'a5e973d50971fb';
+    public string $SMTPUser = 'teste@bh.emp.br';
 
     /**
      * SMTP Password
      */
-    public string $SMTPPass = '6b53f328a51264';
+    public string $SMTPPass = 'Davi2014!@#';
 
     /**
      * SMTP Port
      */
-    public int $SMTPPort = 2525;
+    public int $SMTPPort = 465;
 
     /**
      * SMTP Timeout (in seconds)
