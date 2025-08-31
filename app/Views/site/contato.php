@@ -858,10 +858,10 @@
                                 </div>
                             </li>
                             <li>
-                                <i class="fab fa-linkedin"></i>
+                                <i class="fas fa-envelope"></i>
                                 <div>
-                                    <p>LinkedIn</p>
-                                    <span>@belottisestagios</span>
+                                    <p>Emaill</p>
+                                    <span>contato@belottis.com.br</span>
                                 </div>
                             </li>
                         </ul>
