@@ -150,7 +150,7 @@ class CurriculoController extends Controller
 
         $email->initialize($config);
 
-        $email->setFrom('contato@advogadocontagem.com.br', $this->request->getGetPost('name'));
+        $email->setFrom('contato@advogadocontagem.com.br', $this->request->getGetPost('nome'));
         $email->setTo('fredericopaulista02@gmail.com');
         $email->setReplyTo('contato@belottis.com.br', 'Belottis Estágio');
         $email->setCC('fredericopaulista@gmail.com');
