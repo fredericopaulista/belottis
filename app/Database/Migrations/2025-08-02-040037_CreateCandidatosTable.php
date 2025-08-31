@@ -124,7 +124,7 @@ class CreateCandidatosTable extends Migration
         $this->forge->addKey('id');
         $this->forge->addKey('email');
         $this->forge->addKey('status');
-        $this->forge->addKey('criado_em');
+        $this->forge->addKey('data_cadastro');
         
         $this->forge->createTable('candidatos');
     }
