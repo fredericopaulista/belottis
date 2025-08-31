@@ -1,11 +1,11 @@
 <?php
-// app/Database/Migrations/2023_11_01_000000_create_vagas_table.php
+
 
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateVagasTable extends Migration
+class CreateCandidatosTable extends Migration
 {
     public function up()
     {
