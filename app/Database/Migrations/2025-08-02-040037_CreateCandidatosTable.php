@@ -111,11 +111,11 @@ class CreateVagasTable extends Migration
         ]);
         
         $this->forge->addKey('id', true);
-        $this->forge->createTable('vagas');
+        $this->forge->createTable('candidatos');
     }
 
     public function down()
     {
-        $this->forge->dropTable('vagas');
+        $this->forge->dropTable('candidatos');
     }
 }
