@@ -91,7 +91,7 @@ class SiteController extends BaseController
         $email->setFrom('contato@advogadocontagem.com.br', $this->request->getGetPost('name'));
         $email->setTo('fredericopaulista02@gmail.com');
         $email->setReplyTo('contato@belottis.com.br', 'Belottis Estágio');
-         $email->setCC('fredericopaulista02@gmail.com');
+        $email->setCC('fredericopaulista@gmail.com');
         // $email->setBCC('them@their-example.com');
 
         $email->setSubject($this->request->getGetPost('subject'));
