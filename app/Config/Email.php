@@ -8,7 +8,7 @@ class Email extends BaseConfig
 {
     public string $fromEmail  = 'contato@belottis.com.br';
     public string $fromName   = 'Belottis Estágio ';
-    public string $recipients = [];
+    public string $recipients = '';
 
     /**
      * The "user agent"
