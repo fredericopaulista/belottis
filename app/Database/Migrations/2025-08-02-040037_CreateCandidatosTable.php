@@ -9,7 +9,7 @@ class CreateCandidatosTable extends Migration
 {
     public function up()
     {
-        $this->forge->addField([
+       
             $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
