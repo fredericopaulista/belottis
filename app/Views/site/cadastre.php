@@ -648,24 +648,22 @@
                             <div class="form-group">
                                 <label for="email">E-mail *</label>
                                 <input type="email" id="email" name="email" placeholder="seu.email@exemplo.com"
-                                    value="seu.email@exemplo.com" required>
+                                    required>
                             </div>
 
                             <div class="form-group">
                                 <label for="telefone">Telefone *</label>
-                                <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required
-                                    value="31 998955912">
+                                <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="nascimento">Data de Nascimento *</label>
-                                <input type="date" id="nascimento" name="data_nascimento" required value="05/08/1981">
+                                <input type="date" id="nascimento" name="data_nascimento" required>
                             </div>
 
                             <div class=" form-group">
                                 <label for="cidade">Cidade *</label>
-                                <input type="text" id="cidade" placeholder="Sua cidade" name="cidade" required
-                                    value="2007">
+                                <input type="text" id="cidade" placeholder="Sua cidade" name="cidade" required>
                             </div>
 
                             <div class="form-group">
@@ -735,20 +733,19 @@
 
                             <div class="form-group">
                                 <label for="curso">Curso *</label>
-                                <input type="text" id="curso" name="curso" placeholder="Nome do curso" required
-                                    value="eme;lwkte">
+                                <input type="text" id="curso" name="curso" placeholder="Nome do curso" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="instituicao">Instituição *</label>
                                 <input type="text" id="instituicao" name="instituicao" placeholder="Nome da instituição"
-                                    required value="eme;lwkte">
+                                    required>
                             </div>
 
                             <div class="form-group">
                                 <label for="conclusao">Ano de Conclusão *</label>
                                 <input type="number" id="conclusao" min="1950" max="2030" name="ano_conclusao"
-                                    placeholder="Ano de conclusão" required value="2007">
+                                    placeholder="Ano de conclusão" required>
                             </div>
                         </div>
 
@@ -756,14 +753,14 @@
                             <label for="experiencia">Experiência Profissional *</label>
                             <textarea id="experiencia"
                                 placeholder="Descreva suas experiências profissionais mais relevantes, incluindo empresa, cargo, período e principais atividades"
-                                required name="experiencia"> elergnlenllwelkngr</textarea>
+                                required name="experiencia"> </textarea>
                         </div>
 
                         <div class="form-group">
                             <label for="habilidades">Habilidades e Competências *</label>
                             <textarea id="habilidades"
                                 placeholder="Liste suas principais habilidades técnicas e comportamentais" required
-                                name="habilidades">kenrlqllnkrlnkwbt</textarea>
+                                name="habilidades"></textarea>
                         </div>
 
                         <h2 class="form-title" style="margin-top: 40px;">Upload de Currículo</h2>
@@ -788,7 +785,7 @@
                             <label for="carta">Carta de Apresentação (opcional)</label>
                             <textarea id="carta"
                                 placeholder="Escreva uma breve apresentação sobre você, suas motivações e objetivos profissionais"
-                                name="carta_apresentacao">carta de apresentação</textarea>
+                                name="carta_apresentacao"></textarea>
                         </div>
 
                         <div class="form-checkbox">
