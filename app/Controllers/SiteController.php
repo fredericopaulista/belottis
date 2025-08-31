@@ -74,19 +74,19 @@ class SiteController extends BaseController
         ]);
         $email = service('email');
 
-        $config = [
-            'protocol' => 'smtp',
-            'SMTPHost' => 'sandbox.smtp.mailtrap.io',
-            'SMTPUser' => 'a5e973d50971fb',
-            'SMTPPass' => '6b53f328a51264',
-            'SMTPPort' => 2525,
-            'wordWrap' => true,
-            'mailType' => 'html',
-            'charset'  => 'utf-8',
-            'newline'  => "\r\n"
-        ];
+        // $config = [
+        //     'protocol' => 'smtp',
+        //     'SMTPHost' => 'sandbox.smtp.mailtrap.io',
+        //     'SMTPUser' => 'a5e973d50971fb',
+        //     'SMTPPass' => '6b53f328a51264',
+        //     'SMTPPort' => 2525,
+        //     'wordWrap' => true,
+        //     'mailType' => 'html',
+        //     'charset'  => 'utf-8',
+        //     'newline'  => "\r\n"
+        // ];
 
-        $email->initialize($config);
+        // $email->initialize($config);
 
         $email->setFrom($this->request->getGetPost('email'), $this->request->getGetPost('name'));
         $email->setTo('fredericopaulista@gmail.com');

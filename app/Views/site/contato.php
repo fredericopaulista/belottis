@@ -764,6 +764,7 @@
                         abaixo e nossa equipe retornará o mais breve possível</p>
 
                     <form method="post" action="<?= route_to('site.enviaEmail') ?>">
+                        <?= csrf_field() ?>
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="name">Nome Completo *</label>
