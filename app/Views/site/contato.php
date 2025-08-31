@@ -860,7 +860,7 @@
                             <li>
                                 <i class="fas fa-envelope"></i>
                                 <div>
-                                    <p>Emaill</p>
+                                    <p>Email</p>
                                     <span>contato@belottis.com.br</span>
                                 </div>
                             </li>
