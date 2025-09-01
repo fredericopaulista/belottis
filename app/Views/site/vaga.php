@@ -921,16 +921,7 @@
                                     <span>Data de Publicação</span>
                                     <span><?= date('d/m/Y', strtotime($vaga->data_publicacao)) ?></span>
                                 </li>
-                                <li>
-                                    <span>Prazo de Inscrição</span>
-                                    <span>
-                                        <?php if ($vaga->prazo_inscricao): ?>
-                                        <?= date('d/m/Y', strtotime($vaga->prazo_inscricao)) ?>
-                                        <?php else: ?>
-                                        Não especificado
-                                        <?php endif; ?>
-                                    </span>
-                                </li>
+
                                 <li>
                                     <span>Vagas Disponíveis</span>
                                     <span><?= $vaga->quantidade_vagas ?? 1 ?></span>
