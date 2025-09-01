@@ -891,13 +891,13 @@
                         </div>
                         <?php endif; ?>
 
-                        <div class="job-actions">
+                        <!-- <div class="job-actions">
                             <a href="<?= route_to('site.candidatura', $vaga->id) ?>" class="btn-apply">
                                 <i class="fas fa-paper-plane"></i>
                                 Candidatar-se Agora
                             </a>
 
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="job-sidebar">
