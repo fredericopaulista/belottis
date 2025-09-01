@@ -1068,7 +1068,7 @@
                                 A Combinar
                                 <?php endif; ?>
                             </div>
-                            <a href="<?= route_to('site.detalhesVaga', $vaga_rel->id) ?>" class="btn-view">
+                            <a href="<?= route_to('site.detalhesVaga', $vaga_rel->slug) ?>" class="btn-view">
                                 Ver Detalhes
                             </a>
                         </div>
