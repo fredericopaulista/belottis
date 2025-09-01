@@ -136,7 +136,7 @@ class VagaController extends BaseController
 
         $this->model->delete($id);
 
-        return redirect()->to('/vagas')->with('message', 'Vaga arquivada com sucesso!');
+        return redirect()->to('/admin/vagas')->with('message', 'Vaga arquivada com sucesso!');
     }
     public function toggleStatus()
     {

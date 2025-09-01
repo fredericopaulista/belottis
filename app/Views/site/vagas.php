@@ -985,7 +985,11 @@
 
                         <div class="job-footer">
                             <div>
-                                <div class="job-salary">R$ <?php echo number_format($job->salario_min, 2, ',', '.'); ?>
+                                <div class="job-salary"><?php if ($job->salario_min > 0): ?>
+                                    R$ <?php echo number_format($job->salario_min, 2, ',', '.'); ?>
+                                    <?php else: ?>
+                                    A Combinar
+                                    <?php endif; ?>
                                 </div>
                                 <div class="job-posted">Publicada em:
                                     <?php echo date('d/m/Y', strtotime($job->data_publicacao)); ?></div>
