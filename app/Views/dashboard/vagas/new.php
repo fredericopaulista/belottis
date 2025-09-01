@@ -151,14 +151,14 @@
                             <div class="form-group">
                                 <label for="salario_min" class="form-control-label">Salário Mínimo (R$)</label>
                                 <input type="number" step="0.01" class="form-control" id="salario_min"
-                                    name="salario_min" placeholder="0,00">
+                                    name="salario_min" placeholder="0,00" value="0,00">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="salario_max" class="form-control-label">Salário Máximo (R$)</label>
                                 <input type="number" step="0.01" class="form-control" id="salario_max"
-                                    name="salario_max" placeholder="0,00">
+                                    name="salario_max" placeholder="0,00" value="0,00">
                             </div>
                         </div>
                         <div class="col-md-4">
