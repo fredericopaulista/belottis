@@ -876,7 +876,7 @@
                                 </div>
                                 <div class="job-details">
                                     <h2><?= $vaga->cargo ?></h2>
-                                    <div class="job-company"><?= $vaga->empresa ?></div>
+
                                     <div class="job-location"><?= $vaga->cidade ?>, <?= $vaga->estado ?></div>
                                     <div class="job-tags">
                                         <span class="job-tag"><?= $vaga->tipo_contratacao ?></span>
@@ -890,19 +890,7 @@
                         <div class="job-meta">
                             <div class="meta-item">
                                 <i class="fas fa-money-bill-wave"></i>
-                                <div class="meta-content">
-                                    <h4>Salário</h4>
-                                    <p>
-                                        <?php if ($vaga->salario_min > 0 && $vaga->salario_max > 0): ?>
-                                        R$ <?= number_format($vaga->salario_min, 2, ',', '.') ?> - R$
-                                        <?= number_format($vaga->salario_max, 2, ',', '.') ?>
-                                        <?php elseif ($vaga->salario_min > 0): ?>
-                                        R$ <?= number_format($vaga->salario_min, 2, ',', '.') ?>
-                                        <?php else: ?>
-                                        A Combinar
-                                        <?php endif; ?>
-                                    </p>
-                                </div>
+
                             </div>
                             <div class="meta-item">
                                 <i class="fas fa-briefcase"></i>
@@ -980,18 +968,7 @@
                     </div>
 
                     <div class="job-sidebar">
-                        <div class="sidebar-section">
-                            <h3>Empresa</h3>
-                            <div class="company-info">
-                                <div class="company-logo">
-                                    <i class="fas fa-building"></i>
-                                </div>
-                                <div class="company-details">
-                                    <h4><?= $vaga->empresa ?></h4>
-                                    <p><?= $vaga->setor ?? 'Setor não informado' ?></p>
-                                </div>
-                            </div>
-                        </div>
+
 
                         <div class="sidebar-section">
                             <h3>Informações da Vaga</h3>
@@ -1059,7 +1036,7 @@
                         <?php foreach ($vagas_relacionadas as $vaga_rel): ?>
                         <div class="related-job-card">
                             <h3><?= $vaga_rel->cargo ?></h3>
-                            <div class="company"><?= $vaga_rel->empresa ?></div>
+
                             <div class="location"><?= $vaga_rel->cidade ?>, <?= $vaga_rel->estado ?></div>
 
                             <a href="<?= route_to('site.detalhesVaga', $vaga_rel->slug) ?>" class="btn-view">
