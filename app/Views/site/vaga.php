@@ -779,9 +779,9 @@
                     <span>/</span>
                     <a href="<?= route_to('site.vagas') ?>">Vagas</a>
                     <span>/</span>
-                    <span>Detalhes da Vaga</span>
+                    <span>Detalhes da Vaga <?= $vaga->cargo ?></span>
                 </div>
-                <h1>Detalhes da Vaga</h1>
+                <h1><?= $vaga->cargo ?></h1>
                 <p>Confira todas as informações sobre esta oportunidade</p>
             </div>
         </section>
