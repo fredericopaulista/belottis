@@ -1005,7 +1005,7 @@
                                 </div>
                                 <div class="job-details">
                                     <h3><?php echo $job->cargo; ?></h3>
-                                    <div class="job-company"><?php echo $job->empresa; ?></div>
+
                                     <div class="job-location"><?php echo $job->cidade; ?>, <?php echo $job->estado; ?>
                                     </div>
                                 </div>
