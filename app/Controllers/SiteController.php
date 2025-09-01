@@ -294,5 +294,12 @@ public function gerarSlugsExistentes()
     
     echo 'Slugs gerados com sucesso!';
 }
+protected function removerAcentos($texto)
+{
+    $from = 'áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ';
+    $to = 'aaaaaeeeeiiiiooooouuuucnAAAAAEEEEIIIIOOOOOUUUUCN';
+    
+    return strtr(utf8_decode($texto), utf8_decode($from), $to);
+}
    
 }

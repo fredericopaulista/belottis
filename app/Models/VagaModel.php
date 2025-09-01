@@ -213,13 +213,7 @@ class VagaModel extends Model
 }
 
 // Adicionar método para remover acentos
-protected function removerAcentos($texto)
-{
-    $from = 'áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ';
-    $to = 'aaaaaeeeeiiiiooooouuuucnAAAAAEEEEIIIIOOOOOUUUUCN';
-    
-    return strtr(utf8_decode($texto), utf8_decode($from), $to);
-}
+
 
     public function findBySlug($slug)
     {
