@@ -888,10 +888,7 @@
                         </div>
 
                         <div class="job-meta">
-                            <div class="meta-item">
-                                <i class="fas fa-money-bill-wave"></i>
 
-                            </div>
                             <div class="meta-item">
                                 <i class="fas fa-briefcase"></i>
                                 <div class="meta-content">
