@@ -93,10 +93,10 @@ class VagaController extends BaseController
         $slug = url_title($texto, '-', true);
 
         // Verificar se slug já existe
-        $existing = $this->vagaModel->where('slug', $slug)->first();
+        $existing = $this->model->where('slug', $slug)->first();
         if ($existing) {
             $counter = 1;
-            while ($this->vagaModel->where('slug', $slug . '-' . $counter)->first()) {
+            while ($this->model->where('slug', $slug . '-' . $counter)->first()) {
                 $counter++;
             }
             $slug = $slug . '-' . $counter;
