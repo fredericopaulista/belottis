@@ -186,27 +186,40 @@ class VagaModel extends Model
     protected function gerarSlug(array $data)
     {
         if (isset($data['data']['cargo']) && isset($data['data']['empresa'])) {
-            $slug = url_title($data['data']['cargo'] . ' ' . $data['data']['empresa'], '-', true);
-            
-            // Verificar se o slug já existe
-            $existing = $this->where('slug', $slug)
-                            ->where('id !=', $data['id'] ?? 0)
-                            ->first();
-            
-            // Se existir, adicionar número no final
-            if ($existing) {
-                $counter = 1;
-                while ($this->where('slug', $slug . '-' . $counter)->first()) {
-                    $counter++;
-                }
-                $slug = $slug . '-' . $counter;
+        // Remover acentos antes de gerar o slug
+        $texto = $data['data']['cargo'] . ' ' . $data['data']['empresa'];
+        $texto = $this->removerAcentos($texto);
+        
+        $slug = url_title($texto, '-', true);
+        
+        // Verificar se o slug já existe
+        $existing = $this->where('slug', $slug)
+                        ->where('id !=', $data['id'] ?? 0)
+                        ->first();
+        
+        // Se existir, adicionar número no final
+        if ($existing) {
+            $counter = 1;
+            while ($this->where('slug', $slug . '-' . $counter)->first()) {
+                $counter++;
             }
-            
-            $data['data']['slug'] = $slug;
+            $slug = $slug . '-' . $counter;
         }
         
-        return $data;
+        $data['data']['slug'] = $slug;
     }
+    
+    return $data;
+}
+
+// Adicionar método para remover acentos
+protected function removerAcentos($texto)
+{
+    $from = 'áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ';
+    $to = 'aaaaaeeeeiiiiooooouuuucnAAAAAEEEEIIIIOOOOOUUUUCN';
+    
+    return strtr(utf8_decode($texto), utf8_decode($from), $to);
+}
 
     public function findBySlug($slug)
     {

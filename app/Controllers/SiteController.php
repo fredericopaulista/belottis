@@ -270,7 +270,11 @@ public function gerarSlugsExistentes()
     $vagas = $this->vagaModel->findAll();
     
     foreach ($vagas as $vaga) {
-        $slug = url_title($vaga->cargo . ' ' . $vaga->empresa, '-', true);
+        // Remover acentos
+        $texto = $vaga->cargo . ' ' . $vaga->empresa;
+        $texto = $this->removerAcentos($texto);
+        
+        $slug = url_title($texto, '-', true);
         
         // Verificar duplicatas
         $existing = $this->vagaModel->where('slug', $slug)
