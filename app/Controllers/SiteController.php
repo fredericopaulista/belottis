@@ -207,28 +207,25 @@ class SiteController extends BaseController
         'title' => 'Resultados da Busca - Vagas Disponíveis'
     ]);
 }
-    public function detalhesVaga($id = null)
+ public function detalhesVaga($slug = null)
 {
-    // Carregar o modelo
-    $vagaModel = new \App\Models\VagaModel();
-    
-    // Validar se o ID foi fornecido
-    if (empty($id)) {
-        throw new PageNotFoundException('ID da vaga não especificado');
+    // Validar se o slug foi fornecido
+    if (empty($slug)) {
+        throw new PageNotFoundException('Slug da vaga não especificado');
     }
 
-    // Buscar a vaga no banco de dados
-    $vaga = $vagaModel->find($id);
+    // Buscar a vaga no banco de dados pelo slug
+    $vaga = $this->vagaModel->findBySlug($slug);
 
-    // Resto do código permanece igual...
     // Verificar se a vaga existe
     if (!$vaga) {
         throw new PageNotFoundException('Vaga não encontrada');
     }
 
-    // Buscar vagas relacionadas (mesma empresa, mesmo setor ou mesmo cargo)
-    $vagasRelacionadas = $vagaModel
-        ->where('id !=', $id)
+    // Resto do método permanece igual...
+    // Buscar vagas relacionadas
+    $vagasRelacionadas = $this->vagaModel
+        ->where('id !=', $vaga->id)
         ->where('ativo', 1)
         ->groupStart()
             ->where('empresa', $vaga->empresa)
@@ -242,15 +239,14 @@ class SiteController extends BaseController
     // Preparar dados para a view
     $data = [
         'title' => $vaga->cargo . ' - ' . $vaga->empresa . ' | Belottis',
-    'vaga' => $vaga,
-    'id' => $id,
-    'vagas_relacionadas' => $vagasRelacionadas,
-    'meta_description' => 'Vaga de ' . $vaga->cargo . ' na ' . $vaga->empresa . 
-                         ' em ' . $vaga->cidade . '/' . $vaga->estado . 
-                         '. ' . strip_tags(substr($vaga->descricao, 0, 150)) . '...'
+        'vaga' => $vaga,
+        'slug' => $slug,
+        'vagas_relacionadas' => $vagasRelacionadas,
+        'meta_description' => 'Vaga de ' . $vaga->cargo . ' na ' . $vaga->empresa . 
+                             ' em ' . $vaga->cidade . '/' . $vaga->estado . 
+                             '. ' . strip_tags(substr($vaga->descricao, 0, 150)) . '...'
     ];
 
-    // Carregar a view com os dados
     return view('site/vaga', $data);
 }
    

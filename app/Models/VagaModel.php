@@ -29,7 +29,8 @@ class VagaModel extends Model
         'setor', 
         'quantidade_vagas', 
         'prazo_inscricao', 
-        'ativo'
+        'ativo',
+        'slug'
     ];
 
     protected $useTimestamps = true;
@@ -37,6 +38,8 @@ class VagaModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
+    //  protected $beforeInsert = ['gerarSlug'];
+    protected $beforeUpdate = ['gerarSlug'];
 
     protected $validationRules = [
         'cargo' => 'required|max_length[100]',
@@ -179,5 +182,34 @@ class VagaModel extends Model
         ];
         
         return $this->insert($dados);
+    }
+    protected function gerarSlug(array $data)
+    {
+        if (isset($data['data']['cargo']) && isset($data['data']['empresa'])) {
+            $slug = url_title($data['data']['cargo'] . ' ' . $data['data']['empresa'], '-', true);
+            
+            // Verificar se o slug já existe
+            $existing = $this->where('slug', $slug)
+                            ->where('id !=', $data['id'] ?? 0)
+                            ->first();
+            
+            // Se existir, adicionar número no final
+            if ($existing) {
+                $counter = 1;
+                while ($this->where('slug', $slug . '-' . $counter)->first()) {
+                    $counter++;
+                }
+                $slug = $slug . '-' . $counter;
+            }
+            
+            $data['data']['slug'] = $slug;
+        }
+        
+        return $data;
+    }
+
+    public function findBySlug($slug)
+    {
+        return $this->where('slug', $slug)->first();
     }
 }
