@@ -740,6 +740,49 @@
         margin: 0 10px;
     }
 
+    .newsletter-section {
+        background-color: var(--light);
+        padding: 60px 0;
+        text-align: center;
+    }
+
+    .newsletter-content {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .newsletter-form {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .newsletter-input {
+        flex: 1;
+        min-width: 250px;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    .newsletter-button {
+        background-color: var(--primary);
+        color: var(--white);
+        border: none;
+        padding: 12px 25px;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .newsletter-button:hover {
+        background-color: var(--secondary);
+    }
+
     @media (max-width: 768px) {
         .job-header {
             flex-direction: column;
