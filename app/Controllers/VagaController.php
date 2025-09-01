@@ -75,6 +75,8 @@ class VagaController extends BaseController
     // Salva a nova vaga
     public function create()
     {
+        helper('text');
+        
         if (!$this->validate($this->model->validationRules, $this->model->validationMessages)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
