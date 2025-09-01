@@ -975,10 +975,7 @@
                                     <span><?= date('d/m/Y', strtotime($vaga->data_publicacao)) ?></span>
                                 </li>
 
-                                <li>
-                                    <span>Vagas Disponíveis</span>
-                                    <span><?= $vaga->quantidade_vagas ?? 1 ?></span>
-                                </li>
+
                                 <li>
                                     <span>Modalidade</span>
                                     <span><?= $vaga->modalidade ?></span>
