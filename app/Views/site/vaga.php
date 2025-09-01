@@ -941,9 +941,9 @@
                             <h3>Compartilhar Vaga</h3>
                             <div style="display: flex; gap: 10px;">
                                 <!-- LinkedIn -->
-                                <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?= urlencode(current_url()) ?>"
+                                <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?= urlencode(base_url('vaga/' . $vaga->slug)) ?>"
                                     target="_blank" class="btn-save" style="flex: 1; text-align: center;"
-                                    title="Compartilhar no LinkedIn">
+                                    title="Compartilhar no LinkedIn" onclick="event.stopPropagation(); return true;">
                                     <i class="fab fa-linkedin"></i>
                                 </a>
 
@@ -1060,6 +1060,14 @@
                 }
             });
         }
+    });
+    // Remover event listeners conflitantes temporariamente
+    document.querySelectorAll('a.btn-save').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (this.href.includes('linkedin.com')) {
+                e.stopImmediatePropagation();
+            }
+        }, true);
     });
     </script>
 </body>
