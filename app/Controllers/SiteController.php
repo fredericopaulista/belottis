@@ -225,12 +225,12 @@ class SiteController extends BaseController
     // Resto do método permanece igual...
     // Buscar vagas relacionadas
     $vagasRelacionadas = $this->vagaModel
-        ->where('id !=', $vaga->id)
+        ->where('id !=', $vaga['id'])
         ->where('ativo', 1)
         ->groupStart()
-            ->where('empresa', $vaga->empresa)
-            ->orWhere('setor', $vaga->setor)
-            ->orLike('cargo', $vaga->cargo)
+            ->where('empresa', $vaga['empresa'])
+            ->orWhere('setor', $vaga['setor'])
+            ->orLike('cargo', $vaga['cargo'])
         ->groupEnd()
         ->orderBy('data_publicacao', 'DESC')
         ->limit(3)
@@ -238,13 +238,13 @@ class SiteController extends BaseController
 
     // Preparar dados para a view
     $data = [
-        'title' => $vaga->cargo . ' - ' . $vaga->empresa . ' | Belottis',
+        'title' => $vaga['cargo'] . ' - ' . $vaga['empresa'] . ' | Belottis',
         'vaga' => $vaga,
         'slug' => $slug,
         'vagas_relacionadas' => $vagasRelacionadas,
-        'meta_description' => 'Vaga de ' . $vaga->cargo . ' na ' . $vaga->empresa . 
-                             ' em ' . $vaga->cidade . '/' . $vaga->estado . 
-                             '. ' . strip_tags(substr($vaga->descricao, 0, 150)) . '...'
+        'meta_description' => 'Vaga de ' . $vaga['cargo'] . ' na ' . $vaga['empresa'] . 
+                             ' em ' . $vaga['cidade'] . '/' . $vaga['estado'] . 
+                             '. ' . strip_tags(substr($vaga['descricao'], 0, 150)) . '...'
     ];
 
     return view('site/vaga', $data);
