@@ -985,7 +985,7 @@
 
                         <div class="job-footer">
                             <div>
-                                <div class="job-salary"><?php if ($job->salario_min > 0): ?>
+                                <div class="ajob-salary"><?php if ($job->salario_min > 0): ?>
                                     R$ <?php echo number_format($job->salario_min, 2, ',', '.'); ?>
                                     <?php else: ?>
                                     A Combinar
@@ -995,7 +995,9 @@
                                     <?php echo date('d/m/Y', strtotime($job->data_publicacao)); ?></div>
                             </div>
                             <div class="job-actions">
-                                <button class="job-action job-action-apply">Ver detalhes</button>
+                                <a href="<?php echo route_to('site.detalhesVaga', $job->id); ?>"
+                                    class="job-action job-action-apply">Ver
+                                    detalhes</a>
                             </div>
                         </div>
                     </div>

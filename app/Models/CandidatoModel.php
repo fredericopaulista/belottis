@@ -123,4 +123,7 @@ class CandidatoModel extends Model
         
         return $contagem;
     }
+    
+    
+    
 }

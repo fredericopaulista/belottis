@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class SiteController extends BaseController
 {
+    
     public function index()
     {
         $jobs = new VagaModel();
@@ -118,6 +119,7 @@ class SiteController extends BaseController
     $localidade = $this->request->getGet('localidade');
     $ensino_medio = $this->request->getGet('ensino_medio');
     $ensino_superior = $this->request->getGet('ensino_superior');
+    $id = $this->request->getGet('id');
     
     // Construir query com filtros
     $query = $vagaModel->where('ativo', 1);
@@ -195,6 +197,7 @@ class SiteController extends BaseController
 
     return view('site/vagas', [
         'jobs' => $jobs, 
+        'id' => $id,
         'pager' => $vagaModel->pager,
         'search_term' => $search,
         'localidade_term' => $localidade,
@@ -204,6 +207,51 @@ class SiteController extends BaseController
         'title' => 'Resultados da Busca - Vagas Disponíveis'
     ]);
 }
+    public function detalhesVaga($id = null)
+{
+    // Carregar o modelo
+    $vagaModel = new \App\Models\VagaModel();
+    
+    // Validar se o ID foi fornecido
+    if (empty($id)) {
+        throw new PageNotFoundException('ID da vaga não especificado');
+    }
 
+    // Buscar a vaga no banco de dados
+    $vaga = $vagaModel->find($id);
+
+    // Resto do código permanece igual...
+    // Verificar se a vaga existe
+    if (!$vaga) {
+        throw new PageNotFoundException('Vaga não encontrada');
+    }
+
+    // Buscar vagas relacionadas (mesma empresa, mesmo setor ou mesmo cargo)
+    $vagasRelacionadas = $vagaModel
+        ->where('id !=', $id)
+        ->where('ativo', 1)
+        ->groupStart()
+            ->where('empresa', $vaga->empresa)
+            ->orWhere('setor', $vaga->setor)
+            ->orLike('cargo', $vaga->cargo)
+        ->groupEnd()
+        ->orderBy('data_publicacao', 'DESC')
+        ->limit(3)
+        ->findAll();
+
+    // Preparar dados para a view
+    $data = [
+        'title' => $vaga->cargo . ' - ' . $vaga->empresa . ' | Belottis',
+    'vaga' => $vaga,
+    'id' => $id,
+    'vagas_relacionadas' => $vagasRelacionadas,
+    'meta_description' => 'Vaga de ' . $vaga->cargo . ' na ' . $vaga->empresa . 
+                         ' em ' . $vaga->cidade . '/' . $vaga->estado . 
+                         '. ' . strip_tags(substr($vaga->descricao, 0, 150)) . '...'
+    ];
+
+    // Carregar a view com os dados
+    return view('site/vaga', $data);
+}
    
 }

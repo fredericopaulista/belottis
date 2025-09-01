@@ -356,6 +356,7 @@
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div id="min-height-view">
+
                 <?php echo $this->renderSection('content'); ?>
             </div>
             <footer class="footer pt-3  ">

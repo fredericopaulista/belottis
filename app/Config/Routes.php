@@ -15,6 +15,7 @@ $routes->get('/cadastre-se', [SiteController::class, 'cadastre'], ['as' => 'site
 $routes->post('/cadastre-se', [CurriculoController::class, 'enviarCurriculo'], ['as' => 'site.enviarCurriculo']);
 $routes->get('/contato', [SiteController::class, 'contato'], ['as' => 'site.contato']);
 $routes->get('/vagas/buscar', [SiteController::class, 'buscaVagas'], ['as' => 'site.buscaVagas']);
+$routes->get('vaga/(:num)', 'SiteController::detalhesVaga/$1', ['as' => 'site.detalhesVaga']);
 $routes->post('/contato', [SiteController::class, 'enviaEmail'], ['as' => 'site.enviaEmail']);
 $routes->get('/quem-somos', [SiteController::class, 'sobre'], ['as' => 'site.sobre']);
 $routes->get('/servicos', [SiteController::class, 'servicos'], ['as' => 'site.servicos']);
@@ -52,8 +53,12 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     // Rotas de candidatos administrativas
     $routes->group('candidatos', function($routes) {
         $routes->get('/', 'CandidatosController::index', ['as' => 'admin.candidatos.index']);
+        $routes->get('cadastrar', 'CandidatosController::new', ['as' => 'admin.candidatos.new']);
+        $routes->post('cadastrar', 'CandidatosController::store', ['as' => 'admin.candidatos.store']);
+        $routes->get('editar/(:num)', 'Admin\CandidatosController::edit/$1', ['as' => 'admin.candidatos.edit']);
         $routes->get('visualizar/(:num)', 'CandidatosController::visualizar/$1', ['as' => 'admin.candidatos.show']);
-        $routes->post('atualizar-status/(:num)', 'CandidatosController::atualizarStatus/$1', ['as' => 'admin.candidatos.update']);
+        $routes->post('atualizar/(:num)', 'Admin\CandidatosController::update/$1', ['as' => 'admin.candidatos.update']);
+        $routes->post('atualizar-status/(:num)', 'CandidatosController::atualizarStatus/$1', ['as' => 'admin.candidatos.atualizarStatus']);
         $routes->get('download/(:num)', 'CandidatosController::downloadCurriculo/$1', ['as' => 'admin.candidatos.download']);
         $routes->get('excluir/(:num)', 'CandidatosController::excluir/$1', ['as' => 'admin.candidatos.destroy']);
     });
