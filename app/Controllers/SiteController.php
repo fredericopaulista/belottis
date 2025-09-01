@@ -257,5 +257,32 @@ public function detalhesVaga($slug = null)
 
     return view('site/vaga', $data);
 }
+
+// Em um controller temporário ou no terminal
+public function gerarSlugsExistentes()
+{
+    $vagas = $this->vagaModel->findAll();
+    
+    foreach ($vagas as $vaga) {
+        $slug = url_title($vaga->cargo . ' ' . $vaga->empresa, '-', true);
+        
+        // Verificar duplicatas
+        $existing = $this->vagaModel->where('slug', $slug)
+                                  ->where('id !=', $vaga->id)
+                                  ->first();
+        
+        if ($existing) {
+            $counter = 1;
+            while ($this->vagaModel->where('slug', $slug . '-' . $counter)->first()) {
+                $counter++;
+            }
+            $slug = $slug . '-' . $counter;
+        }
+        
+        $this->vagaModel->update($vaga->id, ['slug' => $slug]);
+    }
+    
+    echo 'Slugs gerados com sucesso!';
+}
    
 }

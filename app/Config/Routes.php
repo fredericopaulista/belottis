@@ -11,6 +11,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 // Rotas públicas do site
 $routes->get('/', [SiteController::class, 'index'], ['as' => 'site.home']);
+$routes->get('/geraslug', [SiteController::class, 'gerarSlugsExistentes'], ['as' => 'site.gerarSlugsExistentes']);
 $routes->get('/cadastre-se', [SiteController::class, 'cadastre'], ['as' => 'site.cadastre']);
 $routes->post('/cadastre-se', [CurriculoController::class, 'enviarCurriculo'], ['as' => 'site.enviarCurriculo']);
 $routes->get('/contato', [SiteController::class, 'contato'], ['as' => 'site.contato']);
