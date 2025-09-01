@@ -883,6 +883,42 @@
         margin-bottom: 10px;
         color: var(--text);
     }
+
+    /* Notificações da Newsletter */
+    .newsletter-alert {
+        padding: 12px 16px;
+        margin-bottom: 20px;
+        border-radius: 6px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .newsletter-alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .newsletter-alert-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .newsletter-alert i {
+        font-size: 16px;
+    }
+
+    /* Melhorias no formulário */
+    .newsletter-input:invalid {
+        border-color: #dc3545;
+    }
+
+    .newsletter-input:focus:invalid {
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
     </style>
 </head>
 
@@ -1026,9 +1062,35 @@
                     <h2>Receba alertas de novas vagas</h2>
                     <p>Cadastre-se para receber notificações sobre novas oportunidades que correspondam ao seu perfil
                         profissional.</p>
+                    <!-- Notificação de Sucesso -->
+                    <?php if (session('newsletter_success')): ?>
+                    <div class="newsletter-alert newsletter-alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        <?= session('newsletter_success') ?>
+                    </div>
+                    <?php endif ?>
 
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Seu e-mail" class="newsletter-input">
+                    <!-- Notificação de Erro -->
+                    <?php if (session('newsletter_errors')): ?>
+                    <div class="newsletter-alert newsletter-alert-error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <?php 
+                    if (is_array(session('newsletter_errors'))) {
+                        foreach (session('newsletter_errors') as $error) {
+                            echo $error . '<br>';
+                        }
+                    } else {
+                        echo session('newsletter_errors');
+                    }
+                    ?>
+                    </div>
+                    <?php endif ?>
+                    <form class="newsletter-form" action="<?= base_url('newsletter/inscrever') ?>" method="POST">
+                        <input type="email" name="email" placeholder="Seu e-mail" class="newsletter-input"
+                            value="<?= old('email', session('newsletter_old')['email'] ?? '') ?>" required>
+
+                        <input type="text" name="nome" placeholder="Seu nome (opcional)" class="newsletter-input"
+                            value="<?= old('nome', session('newsletter_old')['nome'] ?? '') ?>">
                         <button type="submit" class="newsletter-button">Inscrever-se</button>
                     </form>
                     <p class="text-xs" style="color: var(--text-light); margin-top: 10px;">Ao se inscrever, você

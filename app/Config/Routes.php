@@ -23,6 +23,7 @@ $routes->get('/servicos', [SiteController::class, 'servicos'], ['as' => 'site.se
 $routes->get('/vagas-de-emprego', [SiteController::class, 'todasVagas'], ['as' => 'site.vagas']);
 $routes->get('/politicas-de-privacidade', [SiteController::class, 'politicas'], ['as' => 'site.politicas']);
 $routes->get('/termos-de-uso', [SiteController::class, 'termos'], ['as' => 'site.termos']);
+$routes->post('newsletter/inscrever', 'SiteController::inscrever');
 $routes->get('/lgpd', [SiteController::class, 'lgpd'], ['as' => 'site.lgpd']);
 
 // Rotas públicas de vagas
@@ -63,4 +64,13 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
         $routes->get('download/(:num)', 'CandidatosController::downloadCurriculo/$1', ['as' => 'admin.candidatos.download']);
         $routes->get('excluir/(:num)', 'CandidatosController::excluir/$1', ['as' => 'admin.candidatos.destroy']);
     });
+    // Newsletter Admin
+$routes->group('newsletter', ['filter' => 'auth'], function($routes) {
+    $routes->get('', 'Admin\NewsletterController::index');
+    $routes->get('editar/(:num)', 'Admin\NewsletterController::editar/$1');
+    $routes->post('atualizar/(:num)', 'Admin\NewsletterController::atualizar/$1');
+    $routes->get('excluir/(:num)', 'Admin\NewsletterController::excluir/$1');
+    $routes->get('toggle-status/(:num)', 'Admin\NewsletterController::toggleStatus/$1');
+    $routes->get('exportar', 'Admin\NewsletterController::exportar');
+});
 });

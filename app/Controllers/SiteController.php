@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\VagaModel;
+use App\Models\NewsletterModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class SiteController extends BaseController
@@ -301,5 +302,17 @@ protected function removerAcentos($texto)
     
     return strtr(utf8_decode($texto), utf8_decode($from), $to);
 }
+public function inscrever()
+    {
+        $newsletterModel = new NewsletterModel();
+
+        $dados = $this->request->getPost();
+
+        if ($newsletterModel->save($dados)) {
+            return redirect()->back()->with('success', 'Inscrição realizada com sucesso!');
+        } else {
+            return redirect()->back()->withInput()->with('errors', $newsletterModel->errors());
+        }
+    }
    
 }
