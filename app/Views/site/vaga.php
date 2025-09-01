@@ -1061,13 +1061,7 @@
                             <h3><?= $vaga_rel->cargo ?></h3>
                             <div class="company"><?= $vaga_rel->empresa ?></div>
                             <div class="location"><?= $vaga_rel->cidade ?>, <?= $vaga_rel->estado ?></div>
-                            <div class="salary">
-                                <?php if ($vaga_rel->salario_min > 0): ?>
-                                R$ <?= number_format($vaga_rel->salario_min, 2, ',', '.') ?>
-                                <?php else: ?>
-                                A Combinar
-                                <?php endif; ?>
-                            </div>
+
                             <a href="<?= route_to('site.detalhesVaga', $vaga_rel->slug) ?>" class="btn-view">
                                 Ver Detalhes
                             </a>
