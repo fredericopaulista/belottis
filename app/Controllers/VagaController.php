@@ -81,10 +81,30 @@ class VagaController extends BaseController
 
         $dados = $this->request->getPost();
         $dados['data_publicacao'] = date('Y-m-d', strtotime($dados['data_publicacao']));
-
+  if (empty($this->request->getPost('slug'))) {
+        $cargo = $this->request->getPost('cargo');
+        $empresa = $this->request->getPost('empresa');
+        
+        $texto = $cargo . ' ' . $empresa;
+        $texto = convert_accented_characters($texto);
+        $slug = url_title($texto, '-', true);
+        
+        // Verificar se slug já existe
+        $existing = $this->vagaModel->where('slug', $slug)->first();
+        if ($existing) {
+            $counter = 1;
+            while ($this->vagaModel->where('slug', $slug . '-' . $counter)->first()) {
+                $counter++;
+            }
+            $slug = $slug . '-' . $counter;
+        }
+        
+        // Adicionar slug aos dados
+        $dados['slug'] = $slug;
+    }
         $this->model->save($dados);
 
-        return redirect()->to('/admin/vagas/cadastrar')->with('message', 'Vaga cadastrada com sucesso!');
+        return redirect()->to('/admin/vagas')->with('message', 'Vaga cadastrada com sucesso!');
     }
 
     // Edita uma vaga (formulário)
