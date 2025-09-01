@@ -995,7 +995,7 @@
                                     <?php echo date('d/m/Y', strtotime($job->data_publicacao)); ?></div>
                             </div>
                             <div class="job-actions">
-                                <a href="<?= base_url('vaga/' . $vaga->slug) ?>" class="job-action job-action-apply">Ver
+                                <a href="<?= base_url('vaga/' . $job->slug) ?>" class="job-action job-action-apply">Ver
                                     detalhes</a>
                             </div>
                         </div>
