@@ -83,14 +83,15 @@ class VagaController extends BaseController
 
         $dados = $this->request->getPost();
         $dados['data_publicacao'] = date('Y-m-d', strtotime($dados['data_publicacao']));
-  if (empty($this->request->getPost('slug'))) {
+   if (empty($this->request->getPost('slug'))) {
         $cargo = $this->request->getPost('cargo');
         $empresa = $this->request->getPost('empresa');
-        
+
         $texto = $cargo . ' ' . $empresa;
-        $texto = convert_accented_characters($texto);
+        $texto = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $texto);
+        $texto = preg_replace('/[^a-zA-Z0-9\s]/', '', $texto); // Remover caracteres especiais
         $slug = url_title($texto, '-', true);
-        
+
         // Verificar se slug já existe
         $existing = $this->vagaModel->where('slug', $slug)->first();
         if ($existing) {
@@ -101,7 +102,6 @@ class VagaController extends BaseController
             $slug = $slug . '-' . $counter;
         }
         
-        // Adicionar slug aos dados
         $dados['slug'] = $slug;
     }
         $this->model->save($dados);

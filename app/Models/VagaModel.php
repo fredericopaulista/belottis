@@ -185,10 +185,12 @@ class VagaModel extends Model
     }
     protected function gerarSlug(array $data)
     {
+         helper('text');
+         
         if (isset($data['data']['cargo']) && isset($data['data']['empresa'])) {
         // Remover acentos antes de gerar o slug
         $texto = $data['data']['cargo'] . ' ' . $data['data']['empresa'];
-        $texto = $this->removerAcentos($texto);
+        $texto = convert_accented_characters($texto);
         
         $slug = url_title($texto, '-', true);
         
