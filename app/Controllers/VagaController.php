@@ -17,10 +17,10 @@ class VagaController extends BaseController
     // Lista todas as vagas
     public function index()
     {
-         $curriculoModel = new VagaModel();
+         $vagas = new VagaModel();
     
     // Buscar todas as vagas com os campos necessários
-    $alljobs = $curriculoModel
+    $alljobs = $vagas
                         ->orderBy('data_publicacao', 'DESC')
                         ->findAll();
     
@@ -37,7 +37,7 @@ class VagaController extends BaseController
     ]);
     }
 
-    // Exibe apenas vagas públicas
+
 
 
     // Exibe uma vaga específica
@@ -84,30 +84,30 @@ class VagaController extends BaseController
 
         $this->model->save($dados);
 
-        return redirect()->to('/vagas')->with('message', 'Vaga cadastrada com sucesso!');
+        return redirect()->to('/admin/vagas/cadastrar')->with('message', 'Vaga cadastrada com sucesso!');
     }
 
     // Edita uma vaga (formulário)
     public function edit($id)
-    {
-        $vaga = $this->model->find($id);
+{
+    $vaga = $this->model->find($id);
 
-        if (empty($vaga)) {
-            throw new PageNotFoundException('Vaga não encontrada');
-        }
-
-        $data = [
-            'vaga' => $vaga,
-            'titulo' => 'Editar Vaga',
-            'statusOptions' => [
-                'rascunho' => 'Rascunho',
-                'publicada' => 'Publicada',
-                'arquivada' => 'Arquivada'
-            ]
-        ];
-
-        return view('vagas/edit', $data);
+    if (empty($vaga)) {
+        throw new PageNotFoundException('Vaga não encontrada');
     }
+
+    $data = [
+        'vaga' => $vaga,
+        'titulo' => 'Editar Vaga',
+        'statusOptions' => [
+            'rascunho' => 'Rascunho',
+            'publicada' => 'Publicada',
+            'arquivada' => 'Arquivada'
+        ]
+    ];
+
+    return view('dashboard/vagas/edit', $data);
+}
 
     // Atualiza a vaga
     public function update($id)
@@ -122,7 +122,7 @@ class VagaController extends BaseController
 
         $this->model->save($dados);
 
-        return redirect()->to('/vagas')->with('message', 'Vaga atualizada com sucesso!');
+        return redirect()->to('admin/vagas')->with('message', 'Vaga atualizada com sucesso!');
     }
 
     // Exclui uma vaga (soft delete)
@@ -137,5 +137,40 @@ class VagaController extends BaseController
         $this->model->delete($id);
 
         return redirect()->to('/vagas')->with('message', 'Vaga arquivada com sucesso!');
+    }
+    public function toggleStatus()
+    {
+        // Verifica se é uma requisição AJAX
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Requisição inválida']);
+        }
+
+        $id = $this->request->getPost('id');
+        $status = $this->request->getPost('status');
+
+        if (!$id) {
+            return $this->response->setJSON(['success' => false, 'message' => 'ID não fornecido']);
+        }
+
+        $vaga = $this->model->find($id);
+
+        if (!$vaga) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Vaga não encontrada']);
+        }
+
+        try {
+            $data = [
+                'ativo' => $status,
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+
+            if ($this->model->update($id, $data)) {
+                return $this->response->setJSON(['success' => true, 'message' => 'Status atualizado com sucesso']);
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Erro ao atualizar status']);
+            }
+        } catch (\Exception $e) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Erro: ' . $e->getMessage()]);
+        }
     }
 }

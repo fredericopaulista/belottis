@@ -24,8 +24,7 @@ $routes->get('/termos-de-uso', [SiteController::class, 'termos'], ['as' => 'site
 $routes->get('/lgpd', [SiteController::class, 'lgpd'], ['as' => 'site.lgpd']);
 
 // Rotas públicas de vagas
-$routes->get('vagas', 'VagaController::list', ['as' => 'vagas.listar']);
-$routes->get('vagas/(:num)', 'VagaController::show/$1', ['as' => 'vagas.show']);
+
 
 // Rotas de autenticação do Shield
 service('auth')->routes($routes);
@@ -41,10 +40,11 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     // Rotas de vagas administrativas
     $routes->group('vagas', function($routes) {
         $routes->get('/', 'VagaController::index', ['as' => 'admin.vagas.index']);
-        $routes->get('new', 'VagaController::new', ['as' => 'admin.vagas.new']);
+        $routes->get('cadastrar', 'VagaController::new', ['as' => 'admin.vagas.new']);
         $routes->post('cadastrar', 'VagaController::create', ['as' => 'admin.vagas.create']);
         $routes->get('editar/(:num)', 'VagaController::edit/$1', ['as' => 'admin.vagas.edit']);
-        $routes->post('atualizar/(:num)', 'VagaController::update/$1', ['as' => 'admin.vagas.update']);
+        $routes->put('atualizar/(:num)', 'VagaController::update/$1', ['as' => 'admin.vagas.update']);
+        $routes->post('toggle-status/(:num)', 'VagaController::toggleStatus/$1', ['as' => 'admin.vagas.toggleStatus']);
         $routes->get('apagar/(:num)', 'VagaController::delete/$1', ['as' => 'admin.vagas.delete']);
         $routes->post('apagar/(:num)', 'VagaController::destroy/$1', ['as' => 'admin.vagas.destroy']);
     });

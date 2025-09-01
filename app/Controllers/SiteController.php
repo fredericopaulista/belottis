@@ -21,7 +21,7 @@ class SiteController extends BaseController
         $jobModel = new VagaModel();
     $totalJobs = $jobModel->countAllResults();
     $data = [
-        'jobs' => $jobModel->orderBy('created_at', 'DESC')
+        'jobs' => $jobModel->where('ativo', '1')->orderBy('created_at', 'DESC')
                          ->paginate(7), // 5 itens por página
         'pager' => $jobModel->pager,
         'totalJobs' => $totalJobs
@@ -166,7 +166,7 @@ class SiteController extends BaseController
     $page = $this->request->getVar('page') ?? 1;
     
     // Buscar dados com paginação
-    $jobs = $query->orderBy('data_publicacao', 'DESC')
+    $jobs = $query->where('ativo', 1)->orderBy('data_publicacao', 'DESC')
                  ->paginate($perPage, 'default', $page);
     
     // Obter o pager
