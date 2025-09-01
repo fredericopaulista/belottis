@@ -158,7 +158,7 @@
                                 </td>
 
                                 <td class="align-middle text-center">
-                                    <a href="<?php echo route_to('admin/vagas/edit', $job->id); ?>"
+                                    <a href="<?php echo route_to('admin.vagas.edit', $job->id); ?>"
                                         class="btn btn-sm btn-primary" data-toggle="tooltip" title="Editar vaga">
                                         <i class="fa-solid fa-pencil"> Editar</i>
                                     </a>
