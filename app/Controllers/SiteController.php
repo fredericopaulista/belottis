@@ -8,6 +8,12 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class SiteController extends BaseController
 {
+    protected $vagaModel;
+    
+    public function __construct()
+    {
+        $this->vagaModel = new VagaModel();
+    }
     
     public function index()
     {
