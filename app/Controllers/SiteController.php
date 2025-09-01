@@ -207,7 +207,7 @@ class SiteController extends BaseController
         'title' => 'Resultados da Busca - Vagas Disponíveis'
     ]);
 }
- public function detalhesVaga($slug = null)
+public function detalhesVaga($slug = null)
 {
     // Validar se o slug foi fornecido
     if (empty($slug)) {
@@ -222,15 +222,23 @@ class SiteController extends BaseController
         throw new PageNotFoundException('Vaga não encontrada');
     }
 
-    // Resto do método permanece igual...
+    // Ajuste para acesso como objeto ou array
+    $vagaId = is_object($vaga) ? $vaga->id : $vaga['id'];
+    $vagaEmpresa = is_object($vaga) ? $vaga->empresa : $vaga['empresa'];
+    $vagaSetor = is_object($vaga) ? $vaga->setor : $vaga['setor'];
+    $vagaCargo = is_object($vaga) ? $vaga->cargo : $vaga['cargo'];
+    $vagaCidade = is_object($vaga) ? $vaga->cidade : $vaga['cidade'];
+    $vagaEstado = is_object($vaga) ? $vaga->estado : $vaga['estado'];
+    $vagaDescricao = is_object($vaga) ? $vaga->descricao : $vaga['descricao'];
+
     // Buscar vagas relacionadas
     $vagasRelacionadas = $this->vagaModel
-        ->where('id !=', $vaga['id'])
+        ->where('id !=', $vagaId)
         ->where('ativo', 1)
         ->groupStart()
-            ->where('empresa', $vaga['empresa'])
-            ->orWhere('setor', $vaga['setor'])
-            ->orLike('cargo', $vaga['cargo'])
+            ->where('empresa', $vagaEmpresa)
+            ->orWhere('setor', $vagaSetor)
+            ->orLike('cargo', $vagaCargo)
         ->groupEnd()
         ->orderBy('data_publicacao', 'DESC')
         ->limit(3)
@@ -238,13 +246,13 @@ class SiteController extends BaseController
 
     // Preparar dados para a view
     $data = [
-        'title' => $vaga['cargo'] . ' - ' . $vaga['empresa'] . ' | Belottis',
+        'title' => $vagaCargo . ' - ' . $vagaEmpresa . ' | Belottis',
         'vaga' => $vaga,
         'slug' => $slug,
         'vagas_relacionadas' => $vagasRelacionadas,
-        'meta_description' => 'Vaga de ' . $vaga['cargo'] . ' na ' . $vaga['empresa'] . 
-                             ' em ' . $vaga['cidade'] . '/' . $vaga['estado'] . 
-                             '. ' . strip_tags(substr($vaga['descricao'], 0, 150)) . '...'
+        'meta_description' => 'Vaga de ' . $vagaCargo . ' na ' . $vagaEmpresa . 
+                             ' em ' . $vagaCidade . '/' . $vagaEstado . 
+                             '. ' . strip_tags(substr($vagaDescricao, 0, 150)) . '...'
     ];
 
     return view('site/vaga', $data);
