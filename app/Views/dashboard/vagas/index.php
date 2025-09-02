@@ -43,8 +43,7 @@
                             <td><?= ucfirst($job->cargo) ?></td>
                             <td><?= $job->empresa ?></td>
                             <td>
-                                <span class="badge badge-<?= $job->ativo == 1 ? 'success' : 'danger' ?>"
-                                    id="status-badge-<?= $job->id ?>">
+                                <span class="" id="status-badge-<?= $job->id ?>">
                                     <?= $job->ativo == 1 ? 'Ativa' : 'Inativa' ?>
                                 </span>
                             </td>
