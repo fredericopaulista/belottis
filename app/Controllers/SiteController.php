@@ -303,16 +303,19 @@ protected function removerAcentos($texto)
     return strtr(utf8_decode($texto), utf8_decode($from), $to);
 }
 public function inscrever()
-    {
-        $newsletterModel = new NewsletterModel();
+{
+    $newsletterModel = new NewsletterModel();
 
-        $dados = $this->request->getPost();
+    $dados = $this->request->getPost();
 
-        if ($newsletterModel->save($dados)) {
-            return redirect()->back()->with('success', 'Inscrição realizada com sucesso!');
-        } else {
-            return redirect()->back()->withInput()->with('errors', $newsletterModel->errors());
-        }
+    if ($newsletterModel->save($dados)) {
+        return redirect()->back()->with('newsletter_success', 'Inscrição realizada com sucesso!');
+    } else {
+        return redirect()->back()
+            ->withInput()
+            ->with('newsletter_errors', $newsletterModel->errors())
+            ->with('newsletter_old', $dados);
     }
+}
    
 }
