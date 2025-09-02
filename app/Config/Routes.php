@@ -4,6 +4,8 @@ use App\Controllers\CurriculoController;
 use App\Controllers\HomeController;
 use App\Controllers\SiteController;
 use App\Controllers\VagaController;
+use App\Controllers\CandidatosController;
+use App\Controllers\NewsletterController;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -66,11 +68,11 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
     });
     // Newsletter Admin
 $routes->group('newsletter', ['filter' => 'auth'], function($routes) {
-    $routes->get('', 'Admin\NewsletterController::index');
-    $routes->get('editar/(:num)', 'Admin\NewsletterController::editar/$1');
-    $routes->post('atualizar/(:num)', 'Admin\NewsletterController::atualizar/$1');
-    $routes->get('excluir/(:num)', 'Admin\NewsletterController::excluir/$1');
-    $routes->get('toggle-status/(:num)', 'Admin\NewsletterController::toggleStatus/$1');
-    $routes->get('exportar', 'Admin\NewsletterController::exportar');
+    $routes->get('', 'NewsletterController::index', ['as' => 'admin.news.index']);
+    $routes->get('editar/(:num)', 'NewsletterController::editar/$1', ['as' => 'admin.news.editar']);
+    $routes->post('atualizar/(:num)', 'NewsletterController::atualizar/$1', ['as' => 'admin.news.atualizar']);
+    $routes->get('excluir/(:num)', 'NewsletterController::excluir/$1', ['as' => 'admin.news.excluir']);
+    $routes->get('toggle-status/(:num)', 'NewsletterController::toggleStatus/$1', ['as' => 'admin.news.toggleStatus']);
+    $routes->get('exportar', 'NewsletterController::exportar', ['as' => 'admin.news.exportar']);
 });
 });

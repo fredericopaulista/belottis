@@ -309,7 +309,7 @@ public function inscrever()
     $dados = $this->request->getPost();
 
     if ($newsletterModel->save($dados)) {
-        return redirect()->back()->with('newsletter_success', 'Inscrição realizada com sucesso!');
+        return redirect()->back()->with('newsletter_success', 'Cadastro realizado com sucesso!');
     } else {
         return redirect()->back()
             ->withInput()

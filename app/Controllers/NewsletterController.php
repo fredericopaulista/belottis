@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\NewsletterModel;
 
 class NewsletterController extends BaseController
 {
@@ -16,12 +17,13 @@ protected $newsletterModel;
 
     public function index()
     {
+        $news = new NewsletterModel();
         $data = [
             'title' => 'Gerenciar Newsletter',
             'inscritos' => $this->newsletterModel->orderBy('criado_em', 'DESC')->findAll()
         ];
 
-        return view('admin/newsletter/index', $data);
+        return view('dashboard/newsletter/index', $data);
     }
 
     public function editar($id = null)
