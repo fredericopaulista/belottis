@@ -39,7 +39,7 @@ class UsersController extends BaseController
             'user' => $user
         ];
 
-        return view('admin/users/editar', $data);
+        return view('dashboard/users/edit', $data);
     }
 
     public function atualizar($id)

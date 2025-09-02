@@ -4,257 +4,164 @@
 <?php echo $page_title ?? 'Vagas Disponíveis'; ?>
 <?php echo $this->endSection(); ?>
 
-<?php echo $this->section('css'); ?>
-
-<link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.3.2/r-3.0.5/datatables.min.css" rel="stylesheet"
-    integrity="sha384-Ccfn4Q+lSKOnc8aSEmH6a7E86lIPrWNrlksJJtb0Qwehi6Fh15cBiKczAAR1N/df" crossorigin="anonymous">
-<style>
-/* NOVOS ESTILOS PARA FEEDBACK */
-.feedback-message {
-    padding: 15px 20px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    display: flex;
-    align-items: center;
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-.feedback-success {
-    background-color: #d4edda;
-    color: #155724;
-    border-left: 4px solid var(--success);
-}
-
-.feedback-error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border-left: 4px solid #dc3545;
-}
-
-.feedback-icon {
-    margin-right: 12px;
-    font-size: 20px;
-}
-
-.feedback-content {
-    flex: 1;
-}
-
-.feedback-close {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: inherit;
-    opacity: 0.7;
-    transition: opacity 0.3s;
-}
-
-.feedback-close:hover {
-    opacity: 1;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-</style>
-<?php echo $this->endSection(); ?>
 <?php echo $this->section('content'); ?>
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800"><?= $title ?? 'Vagas Disponíveis' ?></h1>
 
-<div class="row">
-    <div class="col-12">
-        <div class="card mb-4">
-            <div class="card-header pb-0">
-                <h6>Vagas</h6>
-                <a href="<?php echo route_to('admin.vagas.new'); ?>" class="btn btn-success float-end">
-                    <i class="fa-solid fa-plus"></i>&nbsp; Nova Vaga
-                </a>
-            </div>
-            <!-- Área para mensagens de feedback -->
-            <?php if(session()->getFlashdata('success')): ?>
-            <div class="feedback-message feedback-success">
-                <div class="feedback-icon"><i class="fas fa-check-circle"></i></div>
-                <div class="feedback-content"><?= session()->getFlashdata('success') ?></div>
-                <button class="feedback-close" onclick="this.parentElement.style.display='none'">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <?php endif; ?>
+    <?php if (session()->getFlashdata('success')): ?>
+    <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+    <?php endif ?>
 
-            <?php if(session()->getFlashdata('error')): ?>
-            <div class="feedback-message feedback-error">
-                <div class="feedback-icon"><i class="fas fa-exclamation-circle"></i></div>
-                <div class="feedback-content"><?= session()->getFlashdata('error') ?></div>
-                <button class="feedback-close" onclick="this.parentElement.style.display='none'">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <?php endif; ?>
-            <div class=" card-body px-0 pt-0 pb-2">
-                <div class="table-responsive p-0">
-                    <table id="table" class="table align-items-center mb-0">
-                        <thead>
-                            <tr>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Título
-                                </th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Empresa</th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Status</th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Publicado</th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Ação</th>
+    <?php if (session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+    <?php endif ?>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($data as $job): ?>
-                            <tr>
-
-                                <td>
-                                    <div class="align-middle text-center text-sm">
-
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm"><?php echo ucfirst($job->cargo); ?></h6>
-
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td class="align-middle text-center text-sm">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Lista de Vagas</h6>
+            <a href="<?php echo route_to('admin.vagas.new'); ?>" class="btn btn-success btn-sm">
+                <i class="fas fa-plus"></i> Nova Vaga
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Empresa</th>
+                            <th>Status</th>
+                            <th>Publicado em</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($data as $job): ?>
+                        <tr id="vaga-<?= $job->id ?>">
+                            <td><?= $job->id ?></td>
+                            <td><?= ucfirst($job->cargo) ?></td>
+                            <td><?= $job->empresa ?></td>
+                            <td>
+                                <span class="badge badge-<?= $job->ativo == 1 ? 'success' : 'danger' ?>"
+                                    id="status-badge-<?= $job->id ?>">
+                                    <?= $job->ativo == 1 ? 'Ativa' : 'Inativa' ?>
+                                </span>
+                            </td>
+                            <td><?= date('d/m/Y', strtotime($job->created_at)) ?></td>
+                            <td>
+                                <a href="<?php echo route_to('admin.vagas.edit', $job->id); ?>"
+                                    class="btn btn-primary btn-sm">
+                                    <i class="fas fa-edit"></i> Editar
+                                </a>
+                                <!-- <a href="<?= base_url('admin/vagas/toggle-status/' . $job->id) ?>"
+                                    class="btn btn-<?= $job->ativo == 1 ? 'warning' : 'success' ?> btn-sm toggle-status"
+                                    data-id="<?= $job->id ?>" data-status="<?= $job->ativo ?>">
+                                    <i class="fas fa-<?= $job->ativo == 1 ? 'times' : 'check' ?>"
+                                        id="toggle-icon-<?= $job->id ?>"></i>
                                     <span
-                                        class="text-secondary text-xs font-weight-bold"><?php echo $job->empresa; ?></span>
-                                </td>
-                                <td class="align-middle text-center text-sm">
-                                    <div class="form-check form-switch d-inline-block">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="status-<?php echo $job->id; ?>"
-                                            <?php echo $job->ativo == 1 ? 'checked' : ''; ?>
-                                            onchange="toggleStatus(<?php echo $job->id; ?>, this.checked)">
-                                        <label class="form-check-label small" for="status-<?php echo $job->id; ?>">
-                                            <?php echo $job->ativo == 1 ? 'Ativa' : 'Inativa'; ?>
-                                        </label>
-                                    </div>
-                                </td>
-
-                                <td class="align-middle text-center text-sm">
-                                    <span
-                                        class="text-secondary text-xs font-weight-bold"><?= date('d-m-Y', strtotime($job->created_at)) ?></span>
-                                </td>
-
-                                <td class="align-middle text-center">
-                                    <a href="<?php echo route_to('admin.vagas.edit', $job->id); ?>"
-                                        class="btn btn-sm btn-primary" data-toggle="tooltip" title="Editar vaga">
-                                        <i class="fa-solid fa-pencil"> Editar</i>
-                                    </a>
-                                    <a href="<?php echo route_to('admin.vagas.delete', $job->id); ?>"
-                                        class="btn btn-sm btn-danger" data-toggle="tooltip" title="Excluir vaga"
-                                        onclick="return confirm('Tem certeza que deseja excluir esta vaga?')">
-                                        <i class="fa-solid fa-trash">Apagar</i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php endforeach ?>
-                        </tbody>
-
-                    </table>
-                </div>
+                                        id="toggle-text-<?= $job->id ?>"><?= $job->ativo == 1 ? 'Inativar' : 'Ativar' ?></span>
+                                </a> -->
+                                <a href="<?php echo route_to('admin.vagas.delete', $job->id); ?>"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Tem certeza que deseja excluir esta vaga?')">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
-
-
 <?php echo $this->endSection(); ?>
 
 <?php echo $this->section('js'); ?>
-
 <script src="https://cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.3.2/r-3.0.5/datatables.min.js"
     integrity="sha384-2ftx+0uRJCp41Pvj+ereTHIGMU9w/u1uTH6Pr1l5fHn66JJgc8Xs6r1zCtF7+qb6" crossorigin="anonymous">
 </script>
 <script>
-$('#table').DataTable({
-    order: [],
-    language: {
-        lengthMenu: "Mostrar _MENU_ registros por página",
-        paginate: {
-            first: "<<",
-            previous: "<",
-            next: ">",
-            last: ">>"
-        },
-        // Outras traduções (opcional)
-        search: "Pesquisar:",
-        zeroRecords: "Nenhum registro encontrado",
-        info: "Mostrando _START_ a _END_ de _TOTAL_ registros"
-    }
+$(document).ready(function() {
+    $('#dataTable').DataTable({
+        order: [
+            [0, 'desc']
+        ],
+        language: {
+            lengthMenu: "Mostrar _MENU_ registros por página",
+            paginate: {
+                first: "«",
+                previous: "‹",
+                next: "›",
+                last: "»"
+            },
+            search: "Pesquisar:",
+            zeroRecords: "Nenhum registro encontrado",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 registros",
+            infoFiltered: "(filtrado de _MAX_ registros no total)"
+        }
+    });
+
+    // Interceptar cliques nos links de toggle status
+    $('.toggle-status').on('click', function(e) {
+        e.preventDefault();
+
+        const link = $(this);
+        const vagaId = link.data('id');
+        const statusAtual = link.data('status');
+        const novoStatus = statusAtual == 1 ? 0 : 1;
+
+        // Mostrar loading
+        const originalHtml = link.html();
+        link.html('<i class="fas fa-spinner fa-spin"></i> Processando...');
+        link.addClass('disabled');
+
+        // Fazer a requisição GET para a rota existente
+        window.location.href = link.attr('href');
+
+        // Nota: Após a requisição, o servidor deve redirecionar de volta para esta página
+        // e atualizar os status. Se quiser uma atualização sem recarregar a página,
+        // seria necessário criar uma rota POST ou usar a rota GET com AJAX
+    });
 });
 
-function toggleStatus(vagaId, status) {
-    fetch('<?php echo route_to('admin.vagas.toggleStatus', $job->id); ?>', {
-            method: 'POST',
+// Alternativa: Se preferir usar AJAX com a rota GET existente
+function toggleStatusWithAjax(vagaId, statusAtual) {
+    const novoStatus = statusAtual == 1 ? 0 : 1;
+    const url = '<?= base_url('admin/vagas/toggle-status') ?>/' + vagaId;
+
+    // Mostrar loading
+    const button = $(`#toggle-btn-${vagaId}`);
+    const originalHtml = button.html();
+    button.html('<i class="fas fa-spinner fa-spin"></i> Processando...');
+    button.addClass('disabled');
+
+    // Fazer requisição GET
+    fetch(url, {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
                 'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: `id=${vagaId}&status=${status ? 1 : 0}&<?php echo csrf_token(); ?>=<?php echo csrf_hash(); ?>`
+            }
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                const label = document.querySelector(`label[for="status-${vagaId}"]`);
-                if (label) {
-                    label.textContent = status ? 'Ativa' : 'Inativa';
-                }
-                alert('Status atualizado com sucesso!');
+                // Recarregar a página para ver as mudanças
+                location.reload();
             } else {
-                const checkbox = document.querySelector(`#status-${vagaId}`);
-                if (checkbox) {
-                    checkbox.checked = !status;
-                }
                 alert('Erro: ' + data.message);
+                button.html(originalHtml);
+                button.removeClass('disabled');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            const checkbox = document.querySelector(`#status-${vagaId}`);
-            if (checkbox) {
-                checkbox.checked = !status;
-            }
             alert('Erro de conexão');
+            button.html(originalHtml);
+            button.removeClass('disabled');
         });
-}
-
-function showToast(message, type = 'info') {
-    // Usando SweetAlert2 para mensagens mais bonitas (opcional)
-    if (typeof Swal !== 'undefined') {
-        Swal.fire({
-            icon: type,
-            title: message,
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
-    } else {
-        // Fallback para alert simples
-        alert(message);
-    }
 }
 </script>
 <?php echo $this->endSection(); ?>
