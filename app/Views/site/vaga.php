@@ -1044,12 +1044,13 @@
             </div>
         </section>
 
-        <section class="newsletter-section">
+        <section class="newsletter-section" id="newsletter">
             <div class="container">
                 <div class="newsletter-content">
                     <h2>Receba alertas de novas vagas</h2>
                     <p>Cadastre-se para receber notificações sobre novas oportunidades que correspondam ao seu perfil
                         profissional.</p>
+
                     <!-- Notificação de Sucesso -->
                     <?php if (session('newsletter_success')): ?>
                     <div class="newsletter-alert newsletter-alert-success">
@@ -1063,16 +1064,17 @@
                     <div class="newsletter-alert newsletter-alert-error">
                         <i class="fas fa-exclamation-circle"></i>
                         <?php 
-                    if (is_array(session('newsletter_errors'))) {
-                        foreach (session('newsletter_errors') as $error) {
-                            echo $error . '<br>';
-                        }
-                    } else {
-                        echo session('newsletter_errors');
+                if (is_array(session('newsletter_errors'))) {
+                    foreach (session('newsletter_errors') as $error) {
+                        echo $error . '<br>';
                     }
-                    ?>
+                } else {
+                    echo session('newsletter_errors');
+                }
+                ?>
                     </div>
                     <?php endif ?>
+
                     <form class="newsletter-form" action="<?= base_url('newsletter/inscrever') ?>" method="POST">
                         <?php echo csrf_field(); ?>
                         <input type="email" name="email" placeholder="Seu e-mail" class="newsletter-input"
@@ -1139,6 +1141,18 @@
                 e.stopImmediatePropagation();
             }
         }, true);
+    });
+    // Rolagem automática para a newsletter quando há mensagens
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if (session('newsletter_success') || session('newsletter_errors')): ?>
+        const newsletterSection = document.getElementById('newsletter');
+        if (newsletterSection) {
+            newsletterSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+        <?php endif ?>
     });
     </script>
 </body>
