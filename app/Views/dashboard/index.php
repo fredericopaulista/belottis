@@ -61,7 +61,7 @@
                         <div class="numbers">
                             <p class="text-sm mb-0 text-capitalize font-weight-bold">Empresas</p>
                             <h5 class="font-weight-bolder mb-0">
-                                +3,462
+                                0
 
                             </h5>
                         </div>
@@ -99,7 +99,7 @@
     </div> -->
 </div>
 
-<div class="row my-4">
+<!-- <div class="row my-4">
     <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
         <div class="card">
             <div class="card-header pb-0">
@@ -727,7 +727,7 @@
         </div>
     </div>
 
-</div>
+</div> -->
 
 <?php echo $this->endSection(); ?>
 

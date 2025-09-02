@@ -48,7 +48,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link <?php echo url_is(route_to('home')) ? 'active' : '' ;?>"
-                        href="<?php echo route_to('home'); ?>">
+                        href="<?= site_url('/admin/dashboard') ?>">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1"
@@ -290,14 +290,14 @@
             // Breadcrumb padrão caso não seja definido
         ?>
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark"
-                                href="<?= site_url('/') ?>">Home</a></li>
+                                href="<?= site_url('/admin/dashboard') ?>">Home</a></li>
                         <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
                         <?php endif; ?>
                     </ol>
                     <h6 class="font-weight-bolder mb-0"><?= $this->renderSection('title') ?? 'Dashboard' ?></h6>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                    <!-- <div class="ms-md-auto pe-md-3 d-flex align-items-center">
 
                         <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
                         <input type="text" class="form-control" placeholder="Type here...">
