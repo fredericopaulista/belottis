@@ -79,6 +79,32 @@ class UsersController extends BaseController
 
     public function excluir($id)
     {
+         // Verificar se o usuário atual é admin
+    $isAdmin = false;
+    $currentUserGroups = auth()->user()->getGroups();
+    foreach ($currentUserGroups as $group) {
+        if ($group === 'admin') {
+            $isAdmin = true;
+            break;
+        }
+    }
+    
+    // Buscar o usuário a ser excluído
+    $userToDelete = $this->userModel->find($id);
+    
+    // Verificar se o usuário a ser excluído é admin
+    $userIsAdmin = false;
+    foreach ($userToDelete->getGroups() as $group) {
+        if ($group === 'admin') {
+            $userIsAdmin = true;
+            break;
+        }
+    }
+    
+    // Impedir que usuários não-admin excluam admins
+    if (!$isAdmin && $userIsAdmin) {
+        return redirect()->back()->with('error', 'Você não tem permissão para excluir um administrador.');
+    }
         // Não permitir excluir o próprio usuário
         if ($id == auth()->id()) {
             return redirect()->back()->with('error', 'Você não pode excluir sua própria conta');
