@@ -31,38 +31,70 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($users as $user): ?>
+                        <?php 
+                        // Verificar se o usuário atual é admin
+                        $isAdmin = false;
+                        $currentUserGroups = auth()->user()->getGroups();
+                        foreach ($currentUserGroups as $group) {
+                            if ($group === 'admin') {
+                                $isAdmin = true;
+                                break;
+                            }
+                        }
+                        
+                        foreach ($users as $user): 
+                            // Verificar se o usuário da lista é admin
+                            $userIsAdmin = false;
+                            foreach ($user->getGroups() as $group) {
+                                if ($group === 'admin') {
+                                    $userIsAdmin = true;
+                                    break;
+                                }
+                            }
+                        ?>
                         <tr>
                             <td><?= $user->id ?></td>
                             <td><?= $user->username ?></td>
                             <td><?= $user->email ?></td>
                             <td>
                                 <?php foreach ($user->getGroups() as $group): ?>
-                                <span><?= $group ?></span>
+                                <span class="badge badge-primary"><?= $group ?></span>
                                 <?php endforeach ?>
                             </td>
                             <td>
-                                <span class="">
+                                <span class="badge badge-<?= $user->active ? 'success' : 'danger' ?>">
                                     <?= $user->active ? 'Ativo' : 'Inativo' ?>
                                 </span>
                             </td>
                             <td><?= date('d/m/Y H:i', strtotime($user->created_at)) ?></td>
                             <td>
+                                <!-- Sempre permitir edição -->
                                 <a href="<?= base_url('admin/usuarios/editar/' . $user->id) ?>"
                                     class="btn btn-primary btn-sm">
                                     <i class="fas fa-edit"></i> Editar
                                 </a>
+
+                                <!-- Botão de ativar/inativar -->
                                 <a href="<?= base_url('admin/usuarios/toggle-status/' . $user->id) ?>"
                                     class="btn btn-<?= $user->active ? 'warning' : 'success' ?> btn-sm">
                                     <i class="fas fa-<?= $user->active ? 'times' : 'check' ?>"></i>
                                     <?= $user->active ? 'Inativar' : 'Ativar' ?>
                                 </a>
+
+                                <!-- Botão de excluir - restrito para usuários não-admin -->
                                 <?php if ($user->id != auth()->id()): ?>
+                                <?php if ($isAdmin || !$userIsAdmin): ?>
                                 <a href="<?= base_url('admin/usuarios/excluir/' . $user->id) ?>"
                                     class="btn btn-danger btn-sm"
                                     onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
                                     <i class="fas fa-trash"></i> Excluir
                                 </a>
+                                <?php else: ?>
+                                <!-- Espaçador para manter o layout -->
+                                <span class="btn btn-sm" style="visibility: hidden;">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </span>
+                                <?php endif; ?>
                                 <?php endif ?>
                             </td>
                         </tr>
