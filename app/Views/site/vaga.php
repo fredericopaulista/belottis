@@ -1074,6 +1074,7 @@
                     </div>
                     <?php endif ?>
                     <form class="newsletter-form" action="<?= base_url('newsletter/inscrever') ?>" method="POST">
+                        <?php echo csrf_field(); ?>
                         <input type="email" name="email" placeholder="Seu e-mail" class="newsletter-input"
                             value="<?= old('email', session('newsletter_old')['email'] ?? '') ?>" required>
 
