@@ -41,6 +41,7 @@
                             <td> <a href="<?= base_url('admin/newsletter/toggle-status/' . $inscrito->id) ?>"
                                     class="btn btn-<?= $inscrito->ativo ? 'warning' : 'success' ?> btn-sm">
                                     <i class="fas fa-<?= $inscrito->ativo ? 'times' : 'check' ?>"></i>
+                                    <?= $inscrito->ativo ? 'Inativar' : 'Ativar' ?>
                                 </a></td>
                             <td>
                                 <a href="<?= base_url('admin/newsletter/editar/' . $inscrito->id) ?>"
