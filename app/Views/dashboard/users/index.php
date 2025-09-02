@@ -58,11 +58,11 @@
                             <td><?= $user->email ?></td>
                             <td>
                                 <?php foreach ($user->getGroups() as $group): ?>
-                                <span class="badge badge-primary"><?= $group ?></span>
+                                <span class=""><?= $group ?></span>
                                 <?php endforeach ?>
                             </td>
                             <td>
-                                <span class="badge badge-<?= $user->active ? 'success' : 'danger' ?>">
+                                <span class="">
                                     <?= $user->active ? 'Ativo' : 'Inativo' ?>
                                 </span>
                             </td>
