@@ -162,7 +162,7 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Administração</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  " href="<?php echo base_url(); ?>pages/profile.html">
+                    <a class="nav-link  " href="<?php echo route_to('admin.user.index'); ?>">
                         <div
                             class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"

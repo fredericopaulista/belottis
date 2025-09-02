@@ -49,7 +49,7 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
         $routes->post('cadastrar', 'VagaController::create', ['as' => 'admin.vagas.create']);
         $routes->get('editar/(:num)', 'VagaController::edit/$1', ['as' => 'admin.vagas.edit']);
         $routes->put('atualizar/(:num)', 'VagaController::update/$1', ['as' => 'admin.vagas.update']);
-        $routes->post('toggle-status/(:num)', 'VagaController::toggleStatus/$1', ['as' => 'admin.vagas.toggleStatus']);
+        $routes->get('toggle-status/(:num)', 'VagaController::toggleStatus/$1', ['as' => 'admin.vagas.toggleStatus']);
         $routes->get('apagar/(:num)', 'VagaController::delete/$1', ['as' => 'admin.vagas.delete']);
         $routes->post('apagar/(:num)', 'VagaController::destroy/$1', ['as' => 'admin.vagas.destroy']);
     });
@@ -67,7 +67,7 @@ $routes->group('admin', ['filter' => 'auth'], function($routes) {
         $routes->get('excluir/(:num)', 'CandidatosController::excluir/$1', ['as' => 'admin.candidatos.destroy']);
     });
     // Newsletter Admin
-$routes->group('newsletter', ['filter' => 'auth'], function($routes) {
+$routes->group('newsletter', function($routes) {
     $routes->get('', 'NewsletterController::index', ['as' => 'admin.news.index']);
     $routes->get('editar/(:num)', 'NewsletterController::editar/$1', ['as' => 'admin.news.editar']);
     $routes->post('atualizar/(:num)', 'NewsletterController::atualizar/$1', ['as' => 'admin.news.atualizar']);
@@ -75,4 +75,11 @@ $routes->group('newsletter', ['filter' => 'auth'], function($routes) {
     $routes->get('toggle-status/(:num)', 'NewsletterController::toggleStatus/$1', ['as' => 'admin.news.toggleStatus']);
     $routes->get('exportar', 'NewsletterController::exportar', ['as' => 'admin.news.exportar']);
 });
+    $routes->group('usuarios', function($routes) {
+    $routes->get('', 'UsersController::index', ['as' => 'admin.user.index']);
+        $routes->get('editar/(:num)', 'UsersController::editar/$1', ['as' => 'admin.user.editar']);
+        $routes->post('atualizar/(:num)', 'UsersController::atualizar/$1', ['as' => 'admin.user.atualizar']);
+        $routes->get('excluir/(:num)', 'UsersController::excluir/$1', ['as' => 'admin.user.excluir']);
+        $routes->get('toggle-status/(:num)', 'UsersController::toggleStatus/$1', ['as' => 'admin.user.toggleStatus']);
+    });
 });
