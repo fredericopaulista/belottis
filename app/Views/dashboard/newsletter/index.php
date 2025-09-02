@@ -27,6 +27,7 @@
                             <th>Nome</th>
                             <th>E-mail</th>
                             <th>Data Cadastro</th>
+                            <th>Status</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -37,16 +38,16 @@
                             <td><?= $inscrito->email ?></td>
 
                             <td><?= date('d/m/Y H:i', strtotime($inscrito->criado_em)) ?></td>
-
+                            <td> <a href="<?= base_url('admin/newsletter/toggle-status/' . $inscrito->id) ?>"
+                                    class="btn btn-<?= $inscrito->ativo ? 'warning' : 'success' ?> btn-sm">
+                                    <i class="fas fa-<?= $inscrito->ativo ? 'times' : 'check' ?>"></i>
+                                </a></td>
                             <td>
                                 <a href="<?= base_url('admin/newsletter/editar/' . $inscrito->id) ?>"
                                     class="btn btn-primary btn-sm">
                                     <i class="fas fa-edit"> Editar</i>
                                 </a>
-                                <a href="<?= base_url('admin/newsletter/toggle-status/' . $inscrito->id) ?>"
-                                    class="btn btn-<?= $inscrito->ativo ? 'warning' : 'success' ?> btn-sm">
-                                    <i class="fas fa-<?= $inscrito->ativo ? 'times' : 'check' ?>"></i>
-                                </a>
+
                                 <a href="<?= base_url('admin/newsletter/excluir/' . $inscrito->id) ?>"
                                     class="btn btn-danger btn-sm"
                                     onclick="return confirm('Tem certeza que deseja excluir?')">
