@@ -889,13 +889,13 @@
 
                         <div class="job-meta">
 
-                            <div class="meta-item">
+                            <!-- <div class="meta-item">
                                 <i class="fas fa-briefcase"></i>
-                                <!-- <div class="meta-content">
+                                <div class="meta-content">
                                     <h4>Tipo de Contratação</h4>
-                                    <p><?= $vaga->tipo_contratacao ?></p>
-                                </div> -->
-                            </div>
+                                    <p></p>
+                                </div>
+                            </div> -->
                             <div class="meta-item">
                                 <i class="fas fa-location-dot"></i>
                                 <div class="meta-content">
