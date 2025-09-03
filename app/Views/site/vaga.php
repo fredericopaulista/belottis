@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php echo $this->section('title'); ?>
-    <?php echo $page_title ?? 'Vaga de Eestágio'; ?>
+    <?php echo $$data->title ?? 'Vaga de Estágio'; ?>
     <?php echo $this->endSection(); ?>
     <meta name="description"
         content="Detalhes completos da vaga de emprego. Confira os requisitos, benefícios e como se candidatar.">
