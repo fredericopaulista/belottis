@@ -439,7 +439,8 @@
         </footer>
         </div>
     </main>
-
+    <!-- Inclui o botão do WhatsApp -->
+    <?= $this->include('components/whatsapp_float') ?>
     <!--   Core JS Files   -->
     <script src="<?php echo base_url(); ?>assets/js/core/popper.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>

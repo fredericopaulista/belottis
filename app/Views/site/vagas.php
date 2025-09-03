@@ -920,6 +920,70 @@
         box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
     }
     </style>
+    <style>
+    .whatsapp-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+    }
+
+    .whatsapp-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        background-color: #25d366;
+        border-radius: 50%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        animation: pulse 2s infinite;
+    }
+
+    .whatsapp-link:hover {
+        background-color: #128C7E;
+        transform: scale(1.1);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    .whatsapp-link i {
+        font-size: 30px;
+        color: white;
+    }
+
+    /* Animação de pulsar */
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+        }
+
+        70% {
+            box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+        }
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .whatsapp-float {
+            bottom: 15px;
+            right: 15px;
+        }
+
+        .whatsapp-link {
+            width: 50px;
+            height: 50px;
+        }
+
+        .whatsapp-link i {
+            font-size: 25px;
+        }
+    }
+    </style>
 </head>
 
 <body>
@@ -1107,7 +1171,7 @@
     <footer>
         <?= $this->include('site/layouts/footer') ?>
     </footer>
-
+    <?= $this->include('components/whatsapp_float') ?>
     <script>
     // Menu mobile toggle
     document.addEventListener('DOMContentLoaded', function() {
