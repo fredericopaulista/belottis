@@ -30,7 +30,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Título</th>
-                            <th>Empresa</th>
+
                             <th>Status</th>
                             <th>Publicado em</th>
                             <th>Ações</th>
@@ -41,7 +41,7 @@
                         <tr id="vaga-<?= $job->id ?>">
                             <td><?= $job->id ?></td>
                             <td><?= ucfirst($job->cargo) ?></td>
-                            <td><?= $job->empresa ?></td>
+
                             <td>
                                 <span class="" id="status-badge-<?= $job->id ?>">
                                     <?= $job->ativo == 1 ? 'Ativa' : 'Inativa' ?>
