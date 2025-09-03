@@ -728,6 +728,7 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
         animation: pulse 2s infinite;
+        text-decoration: none;
     }
 
     .whatsapp-link:hover {
