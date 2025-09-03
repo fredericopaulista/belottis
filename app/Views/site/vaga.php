@@ -857,7 +857,8 @@
                 <div class="breadcrumb">
                     <a href="<?= site_url('/') ?>">Home</a>
                     <span>/</span>
-                    <a href="<?= route_to('site.vagas') ?>">Vagas</a>
+                    <a href="<?= route_to('site.vagas') ?>" title="Vagas de <?= $vaga->nivel_experiencia ?>">Vagas de
+                        <?= $vaga->nivel_experiencia ?></a>
                     <span>/</span>
                     <span><?= $vaga->cargo ?></span>
                 </div>
