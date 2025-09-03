@@ -879,7 +879,7 @@
 
                                     <div class="job-location"><?= $vaga->cidade ?>, <?= $vaga->estado ?></div>
                                     <div class="job-tags">
-                                        <span class="job-tag"><?= $vaga->tipo_contratacao ?></span>
+                                        <!-- <span class="job-tag"><?= $vaga->tipo_contratacao ?></span> -->
                                         <span class="job-tag"><?= $vaga->modalidade ?></span>
                                         <span class="job-tag"><?= $vaga->nivel_experiencia ?></span>
                                     </div>
@@ -891,10 +891,10 @@
 
                             <div class="meta-item">
                                 <i class="fas fa-briefcase"></i>
-                                <div class="meta-content">
+                                <!-- <div class="meta-content">
                                     <h4>Tipo de Contratação</h4>
                                     <p><?= $vaga->tipo_contratacao ?></p>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="meta-item">
                                 <i class="fas fa-location-dot"></i>
