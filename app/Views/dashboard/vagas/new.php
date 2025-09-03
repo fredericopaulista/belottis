@@ -34,33 +34,38 @@
             <div class="card-body">
                 <form action="<?php echo route_to('admin.vagas.create'); ?>" method="POST">
                     <?php echo csrf_field(); ?>
-
+                    <input type="hidden" class="form-control" id="empresa" name="empresa" value="..">
+                    <input type="hidden" class="form-control" id="setor" name="setor" value=".">
+                    <input type="hidden" class="form-select" id="modalidade" name="modalidade" value="Presencial">
+                    <input type="hidden" class="form-select" id="nivel_experiencia" name="nivel_experiencia"
+                        value="Estagiário">
+                    <input type="hidden" step="0.01" class="form-control" id="salario_min" name="salario_min"
+                        value="0,00">
+                    <input type="hidden" step="0.01" class="form-control" id="salario_max" name="salario_max"
+                        value="0,00">
+                    <input type="hidden" class="form-control" id="prazo_inscricao" name="prazo_inscricao">
+                    <input type="hidden" class="form-control" id="quantidade_vagas" name="quantidade_vagas" value="1">
+                    <input type="hidden" class="form-control" id="beneficios" name="beneficios" value="."></input>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="cargo" class="form-control-label required-label">Cargo</label>
                                 <input type="text" class="form-control" id="cargo" name="cargo" required
                                     placeholder="Ex: Desenvolvedor Full Stack">
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="empresa" class="form-control-label required-label">Empresa</label>
-                                <input type="text" class="form-control" id="empresa" name="empresa" required
-                                    placeholder="Nome da empresa">
-                            </div>
-                        </div>
+
                     </div>
 
                     <div class="row mt-3">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="cidade" class="form-control-label required-label">Cidade</label>
                                 <input type="text" class="form-control" id="cidade" name="cidade" required
                                     placeholder="Ex: São Paulo">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="estado" class="form-control-label required-label">Estado (UF)</label>
                                 <select class="form-select" id="estado" name="estado" required>
@@ -95,17 +100,11 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="setor" class="form-control-label">Setor</label>
-                                <input type="text" class="form-control" id="setor" name="setor"
-                                    placeholder="Ex: Tecnologia, Saúde, Educação">
-                            </div>
-                        </div>
+
                     </div>
 
                     <div class="row mt-3">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="tipo_contratacao" class="form-control-label required-label">Tipo de
                                     Contratação</label>
@@ -120,57 +119,6 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="modalidade" class="form-control-label required-label">Modalidade</label>
-                                <select class="form-select" id="modalidade" name="modalidade" required>
-                                    <option value="">Selecione a modalidade</option>
-                                    <option value="Presencial">Presencial</option>
-                                    <option value="Híbrido">Híbrido</option>
-                                    <option value="Remoto">Remoto</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="nivel_experiencia" class="form-control-label">Nível de Experiência</label>
-                                <select class="form-select" id="nivel_experiencia" name="nivel_experiencia">
-                                    <option value="">Selecione o nível</option>
-                                    <option value="Estagiário">Estagiário</option>
-                                    <option value="Júnior">Júnior</option>
-                                    <option value="Pleno">Pleno</option>
-                                    <option value="Sênior">Sênior</option>
-                                    <option value="Especialista">Especialista</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="salario_min" class="form-control-label">Salário Mínimo (R$)</label>
-                                <input type="number" step="0.01" class="form-control" id="salario_min"
-                                    name="salario_min" placeholder="0,00" value="0,00" disabled>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="salario_max" class="form-control-label">Salário Máximo (R$)</label>
-                                <input type="number" step="0.01" class="form-control" id="salario_max"
-                                    name="salario_max" placeholder="0,00" value="0,00" disabled>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="quantidade_vagas" class="form-control-label">Quantidade de Vagas</label>
-                                <input type="number" class="form-control" id="quantidade_vagas" name="quantidade_vagas"
-                                    value="1" min="1">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="data_publicacao" class="form-control-label required-label">Data de
@@ -179,14 +127,12 @@
                                     name="data_publicacao" required>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="prazo_inscricao" class="form-control-label">Prazo de Inscrição</label>
-                                <input type="datetime-local" class="form-control" id="prazo_inscricao"
-                                    name="prazo_inscricao">
-                            </div>
-                        </div>
+
                     </div>
+
+
+
+
 
                     <div class="row mt-3">
                         <div class="col-12">
@@ -209,15 +155,7 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="beneficios" class="form-control-label">Benefícios</label>
-                                <textarea class="form-control" id="beneficios" name="beneficios" rows="4"
-                                    placeholder="Liste os benefícios oferecidos (separados por vírgula ou em tópicos)"></textarea>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="row mt-3">
                         <div class="col-md-6">
