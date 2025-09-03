@@ -36,165 +36,141 @@
                     <?php echo csrf_field(); ?>
                     <input type="hidden" name="_method" value="PUT">
 
+                    <!-- Campos ocultos com valores da vaga existente -->
+                    <input type="hidden" class="form-control" id="empresa" name="empresa"
+                        value="<?php echo $vaga->empresa; ?>">
+                    <input type="hidden" class="form-control" id="setor" name="setor"
+                        value="<?php echo $vaga->setor; ?>">
+                    <input type="hidden" class="form-select" id="modalidade" name="modalidade"
+                        value="<?php echo $vaga->modalidade; ?>">
+                    <input type="hidden" class="form-select" id="nivel_experiencia" name="nivel_experiencia"
+                        value="<?php echo $vaga->nivel_experiencia; ?>">
+                    <input type="hidden" step="0.01" class="form-control" id="salario_min" name="salario_min"
+                        value="0.01">
+                    <input type="hidden" step="0.01" class="form-control" id="salario_max" name="salario_max"
+                        value="0.01">
+                    <input type="hidden" class="form-control" id="prazo_inscricao" name="prazo_inscricao"
+                        value="<?php echo $vaga->prazo_inscricao; ?>">
+                    <input type="hidden" class="form-control" id="quantidade_vagas" name="quantidade_vagas" value="1">
+                    <input type="hidden" class="form-control" id="beneficios" name="beneficios"
+                        value="<?php echo $vaga->beneficios; ?>">
+
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="cargo" class="form-control-label required-label">Cargo</label>
                                 <input type="text" class="form-control" id="cargo" name="cargo" required
-                                    value="<?php echo old('cargo', $vaga->cargo); ?>"
-                                    placeholder="Ex: Desenvolvedor Full Stack">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="empresa" class="form-control-label required-label">Empresa</label>
-                                <input type="text" class="form-control" id="empresa" name="empresa" required
-                                    value="<?php echo old('empresa', $vaga->empresa); ?>" placeholder="Nome da empresa">
+                                    placeholder="Ex: Desenvolvedor Full Stack" value="<?php echo $vaga->cargo; ?>">
                             </div>
                         </div>
                     </div>
 
                     <div class="row mt-3">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="cidade" class="form-control-label required-label">Cidade</label>
                                 <input type="text" class="form-control" id="cidade" name="cidade" required
-                                    value="<?php echo old('cidade', $vaga->cidade); ?>" placeholder="Ex: São Paulo">
+                                    placeholder="Ex: São Paulo" value="<?php echo $vaga->cidade; ?>">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="estado" class="form-control-label required-label">Estado (UF)</label>
                                 <select class="form-select" id="estado" name="estado" required>
                                     <option value="">Selecione o estado</option>
-                                    <?php 
-                                    $estados = [
-                                        'AC' => 'Acre', 'AL' => 'Alagoas', 'AP' => 'Amapá', 'AM' => 'Amazonas',
-                                        'BA' => 'Bahia', 'CE' => 'Ceará', 'DF' => 'Distrito Federal', 'ES' => 'Espírito Santo',
-                                        'GO' => 'Goiás', 'MA' => 'Maranhão', 'MT' => 'Mato Grosso', 'MS' => 'Mato Grosso do Sul',
-                                        'MG' => 'Minas Gerais', 'PA' => 'Pará', 'PB' => 'Paraíba', 'PR' => 'Paraná',
-                                        'PE' => 'Pernambuco', 'PI' => 'Piauí', 'RJ' => 'Rio de Janeiro', 'RN' => 'Rio Grande do Norte',
-                                        'RS' => 'Rio Grande do Sul', 'RO' => 'Rondônia', 'RR' => 'Roraima', 'SC' => 'Santa Catarina',
-                                        'SP' => 'São Paulo', 'SE' => 'Sergipe', 'TO' => 'Tocantins'
-                                    ];
-                                    foreach ($estados as $uf => $nome):
-                                    ?>
-                                    <option value="<?php echo $uf; ?>"
-                                        <?php echo (old('estado', $vaga->estado) == $uf) ? 'selected' : ''; ?>>
-                                        <?php echo $nome; ?>
-                                    </option>
-                                    <?php endforeach; ?>
+                                    <option value="AC" <?php echo ($vaga->estado) == 'AC' ? 'selected' : ''; ?>>
+                                        Acre</option>
+                                    <option value="AL" <?php echo ($vaga->estado) == 'AL' ? 'selected' : ''; ?>>
+                                        Alagoas</option>
+                                    <option value="AP" <?php echo ($vaga->estado) == 'AP' ? 'selected' : ''; ?>>
+                                        Amapá</option>
+                                    <option value="AM" <?php echo ($vaga->estado) == 'AM' ? 'selected' : ''; ?>>
+                                        Amazonas</option>
+                                    <option value="BA" <?php echo ($vaga->estado) == 'BA' ? 'selected' : ''; ?>>
+                                        Bahia</option>
+                                    <option value="CE" <?php echo ($vaga->estado) == 'CE' ? 'selected' : ''; ?>>
+                                        Ceará</option>
+                                    <option value="DF" <?php echo ($vaga->estado) == 'DF' ? 'selected' : ''; ?>>
+                                        Distrito Federal</option>
+                                    <option value="ES" <?php echo ($vaga->estado) == 'ES' ? 'selected' : ''; ?>>
+                                        Espírito Santo</option>
+                                    <option value="GO" <?php echo ($vaga->estado) == 'GO' ? 'selected' : ''; ?>>
+                                        Goiás</option>
+                                    <option value="MA" <?php echo ($vaga->estado) == 'MA' ? 'selected' : ''; ?>>
+                                        Maranhão</option>
+                                    <option value="MT" <?php echo ($vaga->estado) == 'MT' ? 'selected' : ''; ?>>
+                                        Mato Grosso</option>
+                                    <option value="MS" <?php echo ($vaga->estado) == 'MS' ? 'selected' : ''; ?>>
+                                        Mato Grosso do Sul</option>
+                                    <option value="MG" <?php echo ($vaga->estado) == 'MG' ? 'selected' : ''; ?>>
+                                        Minas Gerais</option>
+                                    <option value="PA" <?php echo ($vaga->estado) == 'PA' ? 'selected' : ''; ?>>
+                                        Pará</option>
+                                    <option value="PB" <?php echo ($vaga->estado) == 'PB' ? 'selected' : ''; ?>>
+                                        Paraíba</option>
+                                    <option value="PR" <?php echo ($vaga->estado) == 'PR' ? 'selected' : ''; ?>>
+                                        Paraná</option>
+                                    <option value="PE" <?php echo ($vaga->estado) == 'PE' ? 'selected' : ''; ?>>
+                                        Pernambuco</option>
+                                    <option value="PI" <?php echo ($vaga->estado) == 'PI' ? 'selected' : ''; ?>>
+                                        Piauí</option>
+                                    <option value="RJ" <?php echo ($vaga->estado) == 'RJ' ? 'selected' : ''; ?>>
+                                        Rio de Janeiro</option>
+                                    <option value="RN" <?php echo ($vaga->estado) == 'RN' ? 'selected' : ''; ?>>
+                                        Rio Grande do Norte</option>
+                                    <option value="RS" <?php echo ($vaga->estado) == 'RS' ? 'selected' : ''; ?>>
+                                        Rio Grande do Sul</option>
+                                    <option value="RO" <?php echo ($vaga->estado) == 'RO' ? 'selected' : ''; ?>>
+                                        Rondônia</option>
+                                    <option value="RR" <?php echo ($vaga->estado) == 'RR' ? 'selected' : ''; ?>>
+                                        Roraima</option>
+                                    <option value="SC" <?php echo ($vaga->estado) == 'SC' ? 'selected' : ''; ?>>
+                                        Santa Catarina</option>
+                                    <option value="SP" <?php echo ($vaga->estado) == 'SP' ? 'selected' : ''; ?>>
+                                        São Paulo</option>
+                                    <option value="SE" <?php echo ($vaga->estado) == 'SE' ? 'selected' : ''; ?>>
+                                        Sergipe</option>
+                                    <option value="TO" <?php echo ($vaga->estado) == 'TO' ? 'selected' : ''; ?>>
+                                        Tocantins</option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="setor" class="form-control-label">Setor</label>
-                                <input type="text" class="form-control" id="setor" name="setor"
-                                    value="<?php echo old('setor', $vaga->setor); ?>"
-                                    placeholder="Ex: Tecnologia, Saúde, Educação">
                             </div>
                         </div>
                     </div>
 
                     <div class="row mt-3">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="tipo_contratacao" class="form-control-label required-label">Tipo de
                                     Contratação</label>
                                 <select class="form-select" id="tipo_contratacao" name="tipo_contratacao" required>
                                     <option value="">Selecione o tipo</option>
-                                    <?php 
-                                    $tiposContratacao = ['CLT', 'PJ', 'Freelancer', 'Estágio', 'Temporário', 'Autônomo'];
-                                    foreach ($tiposContratacao as $tipo):
-                                    ?>
-                                    <option value="<?php echo $tipo; ?>"
-                                        <?php echo (old('tipo_contratacao', $vaga->tipo_contratacao) == $tipo) ? 'selected' : ''; ?>>
-                                        <?php echo $tipo; ?>
+                                    <option value="CLT"
+                                        <?php echo ($vaga->tipo_contratacao) == 'CLT' ? 'selected' : ''; ?>>CLT
                                     </option>
-                                    <?php endforeach; ?>
+                                    <option value="PJ"
+                                        <?php echo ($vaga->tipo_contratacao) == 'PJ' ? 'selected' : ''; ?>>PJ
+                                    </option>
+                                    <option value="Freelancer"
+                                        <?php echo ($vaga->tipo_contratacao) == 'Freelancer' ? 'selected' : ''; ?>>
+                                        Freelancer</option>
+                                    <option value="Estágio"
+                                        <?php echo ($vaga->tipo_contratacao) == 'Estágio' ? 'selected' : ''; ?>>
+                                        Estágio</option>
+                                    <option value="Temporário"
+                                        <?php echo ($vaga->tipo_contratacao) == 'Temporário' ? 'selected' : ''; ?>>
+                                        Temporário</option>
+                                    <option value="Autônomo"
+                                        <?php echo ($vaga->tipo_contratacao) == 'Autônomo' ? 'selected' : ''; ?>>
+                                        Autônomo</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="modalidade" class="form-control-label required-label">Modalidade</label>
-                                <select class="form-select" id="modalidade" name="modalidade" required>
-                                    <option value="">Selecione a modalidade</option>
-                                    <?php 
-                                    $modalidades = ['Presencial', 'Híbrido', 'Remoto'];
-                                    foreach ($modalidades as $modalidade):
-                                    ?>
-                                    <option value="<?php echo $modalidade; ?>"
-                                        <?php echo (old('modalidade', $vaga->modalidade) == $modalidade) ? 'selected' : ''; ?>>
-                                        <?php echo $modalidade; ?>
-                                    </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="nivel_experiencia" class="form-control-label">Nível de Experiência</label>
-                                <select class="form-select" id="nivel_experiencia" name="nivel_experiencia">
-                                    <option value="">Selecione o nível</option>
-                                    <?php 
-                                    $niveisExperiencia = ['Estagiário', 'Júnior', 'Pleno', 'Sênior', 'Especialista'];
-                                    foreach ($niveisExperiencia as $nivel):
-                                    ?>
-                                    <option value="<?php echo $nivel; ?>"
-                                        <?php echo (old('nivel_experiencia', $vaga->nivel_experiencia) == $nivel) ? 'selected' : ''; ?>>
-                                        <?php echo $nivel; ?>
-                                    </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="salario_min" class="form-control-label">Salário Mínimo (R$)</label>
-                                <input type="number" step="0.01" class="form-control" id="salario_min"
-                                    name="salario_min" value="<?php echo old('salario_min', $vaga->salario_min); ?>"
-                                    placeholder="0,00" disabled>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="salario_max" class="form-control-label">Salário Máximo (R$)</label>
-                                <input type="number" step="0.01" class="form-control" id="salario_max"
-                                    name="salario_max" value="<?php echo old('salario_max', $vaga->salario_max); ?>"
-                                    placeholder="0,00" disabled>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="quantidade_vagas" class="form-control-label">Quantidade de Vagas</label>
-                                <input type="number" class="form-control" id="quantidade_vagas" name="quantidade_vagas"
-                                    value="<?php echo old('quantidade_vagas', $vaga->quantidade_vagas); ?>" min="1">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="data_publicacao" class="form-control-label required-label">Data de
                                     Publicação</label>
                                 <input type="datetime-local" class="form-control" id="data_publicacao"
-                                    name="data_publicacao" required
-                                    value="<?php echo date('Y-m-d\TH:i', strtotime(old('data_publicacao', $vaga->data_publicacao))); ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="prazo_inscricao" class="form-control-label">Prazo de Inscrição</label>
-                                <?php $prazoInscricao = old('prazo_inscricao', $vaga->prazo_inscricao); ?>
-                                <input type="datetime-local" class="form-control" id="prazo_inscricao"
-                                    name="prazo_inscricao"
-                                    value="<?php echo $prazoInscricao ? date('Y-m-d\TH:i', strtotime($prazoInscricao)) : ''; ?>">
+                                    name="data_publicacao" required value="<?php echo $vaga->data_publicacao; ?>">
                             </div>
                         </div>
                     </div>
@@ -205,7 +181,7 @@
                                 <label for="descricao" class="form-control-label required-label">Descrição da
                                     Vaga</label>
                                 <textarea class="form-control" id="descricao" name="descricao" rows="5" required
-                                    placeholder="Descreva detalhadamente as responsabilidades e atribuições do cargo"><?php echo old('descricao', $vaga->descricao); ?></textarea>
+                                    placeholder="Descreva detalhadamente as responsabilidades e atribuições do cargo"><?php echo $vaga->descricao; ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -215,17 +191,7 @@
                             <div class="form-group">
                                 <label for="requisitos" class="form-control-label">Requisitos</label>
                                 <textarea class="form-control" id="requisitos" name="requisitos" rows="4"
-                                    placeholder="Liste os requisitos necessários para a vaga (separados por vírgula ou em tópicos)"><?php echo old('requisitos', $vaga->requisitos); ?></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="beneficios" class="form-control-label">Benefícios</label>
-                                <textarea class="form-control" id="beneficios" name="beneficios" rows="4"
-                                    placeholder="Liste os benefícios oferecidos (separados por vírgula ou em tópicos)"><?php echo old('beneficios', $vaga->beneficios); ?></textarea>
+                                    placeholder="Liste os requisitos necessários para a vaga (separados por vírgula ou em tópicos)"><?php echo $vaga->requisitos; ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -234,8 +200,8 @@
                         <div class="col-md-6">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="ativo" name="ativo" value="1"
-                                    <?php echo (old('ativo', $vaga->ativo) == 1) ? 'checked' : ''; ?>>
-                                <label class="form-check-label" for="ativo">Vaga ativa</label>
+                                    <?php echo ($vaga->ativo ?? 1) ? 'checked' : ''; ?> <label class="form-check-label"
+                                    for="ativo">Vaga ativa</label>
                             </div>
                         </div>
                     </div>
@@ -256,4 +222,11 @@
     </div>
 </div>
 
+<?php echo $this->endSection(); ?>
+
+<?php echo $this->section('js'); ?>
+<script>
+// Não definir data/hora atual automaticamente na edição
+// Os valores serão preenchidos com os dados existentes
+</script>
 <?php echo $this->endSection(); ?>
