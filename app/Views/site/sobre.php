@@ -1079,7 +1079,8 @@
                     </div>
                     <div class="md:w-1/2">
                         <div class="bg-neutral-200 rounded-lg h-[400px] flex items-center justify-center">
-                            <span class="text-white text-lg">Imagem do escritório da empresa</span>
+                            <!-- <span class="text-white text-lg">Imagem do escritório da empresa</span> -->
+
                         </div>
                     </div>
                 </div>

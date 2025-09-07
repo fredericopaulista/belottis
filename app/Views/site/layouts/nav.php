@@ -2,7 +2,7 @@
     <div class="logo">
         <div class="logo-text">
             <a href="<?php echo route_to('site.home');?>" title="Belottis">
-                <img src="<?php echo base_url(); ?>assets/img/Logo_fundo_branco_estagios.png" height="50px"
+                <img src="<?php echo base_url(); ?>public/assets/img/Logo_fundo_branco_estagios.png" height="50px"
                     alt="Belottis Estagios">
             </a>
         </div>

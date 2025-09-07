@@ -211,7 +211,7 @@
                             <button type="submit" class="btn btn-success">
                                 <i class="fa-solid fa-floppy-disk"></i>&nbsp; Atualizar Vaga
                             </button>
-                            <a href="<?php echo route_to('admin/vagas'); ?>" class="btn btn-secondary">
+                            <a href="<?php echo route_to('admin.vagas.index'); ?>" class="btn btn-secondary">
                                 <i class="fa-solid fa-times"></i>&nbsp; Cancelar
                             </a>
                         </div>

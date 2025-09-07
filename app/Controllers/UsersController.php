@@ -43,39 +43,58 @@ class UsersController extends BaseController
     }
 
     public function atualizar($id)
-    {
-        $user = $this->userModel->find($id);
-
-        if (!$user) {
-            return redirect()->back()->with('error', 'Usuário não encontrado');
-        }
-
-        $dados = $this->request->getPost();
-
-        // Atualizar dados básicos
-        if (isset($dados['username'])) {
-            $user->username = $dados['username'];
-        }
-
-        if (isset($dados['email'])) {
-            $user->email = $dados['email'];
-        }
-
-        // Atualizar grupos/permissões
-        if (isset($dados['groups'])) {
-            $user->syncGroups(...$dados['groups']);
-        }
-
-        if (isset($dados['permissions'])) {
-            $user->syncPermissions(...$dados['permissions']);
-        }
-
-        if ($this->userModel->save($user)) {
-            return redirect()->to('/admin/usuarios')->with('success', 'Usuário atualizado com sucesso!');
-        } else {
-            return redirect()->back()->withInput()->with('errors', $this->userModel->errors());
-        }
+{
+    $userModel = new UserModel();
+    $user = $userModel->find($id);
+    
+    if (!$user) {
+        return redirect()->back()->with('error', 'Usuário não encontrado.');
     }
+    
+    // Regras de validação
+    $rules = [
+        'username' => 'required|min_length[3]|max_length[30]',
+        'email'    => 'required|valid_email',
+        'groups'   => 'required',
+        'active'   => 'required|in_list[0,1]'
+    ];
+    
+    // Se for o próprio usuário e forneceu senha, adiciona regras de senha
+    if (auth()->user()->id === $user->id && !empty($this->request->getPost('password'))) {
+        $rules['password'] = 'strong_password';
+        $rules['password_confirm'] = 'required|matches[password]';
+    }
+    
+    if (!$this->validate($rules)) {
+        return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+    }
+    
+    // Dados para atualizar
+    $data = [
+        'username' => $this->request->getPost('username'),
+        'email'    => $this->request->getPost('email'),
+        'active'   => $this->request->getPost('active')
+    ];
+    
+    // Só atualiza a senha se for o próprio usuário e forneceu nova senha
+    if (auth()->user()->id === $user->id && !empty($this->request->getPost('password'))) {
+        $data['password'] = $this->request->getPost('password');
+    }
+    
+    try {
+        // Atualizar usuário
+        $user->fill($data);
+        $userModel->save($user);
+        
+        // Atualizar grupos (usando Shield)
+        // $user->syncGroups($this->request->getPost('groups') ?? []);
+        
+        return redirect()->to('admin/usuarios')->with('success', 'Usuário atualizado com sucesso.');
+        
+    } catch (\Exception $e) {
+        return redirect()->back()->withInput()->with('error', 'Erro ao atualizar usuário: ' . $e->getMessage());
+    }
+}
 
     public function excluir($id)
     {

@@ -106,6 +106,10 @@
                             <tr>
                                 <th
                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    ID
+                                </th>
+                                <th
+                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     Título
                                 </th>
                                 <th
@@ -124,7 +128,12 @@
                         </thead>
                         <tbody>
                             <?php foreach($candidatos as $cand): ?>
+
                             <tr>
+                                <td class="align-middle text-center text-sm">
+                                    <span
+                                        class="text-secondary text-xs font-weight-bold"><?php echo $cand['id'] ?></span>
+                                </td>
 
                                 <td>
                                     <div class="align-middle text-center text-sm">
@@ -149,7 +158,7 @@
                                         class="text-secondary text-xs font-weight-bold"><?= date('d/m/Y', strtotime($cand['data_cadastro'])) ?></span>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <a href="<?php echo route_to('admin/candidatos/edit', $cand['id']); ?>"
+                                    <a href="<?php echo route_to('admin.candidatos.edit', $cand['id']); ?>"
                                         class="btn btn-sm btn-primary" data-toggle="tooltip" title="Editar vaga">
                                         <i class="fa-solid fa-pencil"> Editar</i>
                                     </a>

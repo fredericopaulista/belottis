@@ -7,7 +7,7 @@
     <title>Belottis - Conectando Talentos e Oportunidades</title>
     <meta name="description"
         content="A Belottis RH oferece soluções completas em recrutamento, seleção, gestão de talentos e consultoria em recursos humanos para empresas de todos os portes.">
-    <link rel="preload" rel="stylesheet" href="/assets/css/all.min.css" as="style"
+    <link rel="preload" rel="stylesheet" href="<?php echo base_url(); ?>public/assets/css/all.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

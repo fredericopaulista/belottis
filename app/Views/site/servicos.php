@@ -565,7 +565,7 @@
                 <h1>Nossos Serviços</h1>
                 <p>Oferecemos soluções completas em recursos humanos para empresas de todos os portes.</p>
                 <div class="cta-buttons">
-                    <a href="#" class="btn btn-primary">Solicitar Consultoria</a>
+                    <a href="<?php echo route_to('site.contato');?>" class="btn btn-primary">Solicitar Consultoria</a>
                     <!--<a href="#" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">Ver Depoimentos</a>-->
                 </div>
             </div>
@@ -586,7 +586,7 @@
                         <h3>Recrutamento sob medida</h3>
                         <p>Identificamos e indicamos estagiários com o perfil ideal para a sua empresa, de forma eficaz
                             e assertiva.</p>
-                        <a href="#" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+
                     </div>
 
                     <div class="service-card">
@@ -595,7 +595,7 @@
                         </div>
                         <h3>Seleção personalizada</h3>
                         <p>Conduzimos processos seletivos alinhados às necessidades e à cultura do seu negócio.</p>
-                        <a href="#" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+
                     </div>
 
                     <div class="service-card">
@@ -604,7 +604,7 @@
                         </div>
                         <h3>Intermediação completa</h3>
                         <p>Cuidamos de toda a parte burocrática entre empresa, estudante e instituição de ensino.</p>
-                        <a href="#" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+
                     </div>
 
                     <div class="service-card">
@@ -614,7 +614,7 @@
                         <h3>Gestão de contratos</h3>
                         <p>Administramos a formalização, prorrogação e encerramento do estágio com total segurança e
                             conformidade com a lei de estágio.</p>
-                        <a href="#" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+
                     </div>
 
                     <div class="service-card">
@@ -624,7 +624,7 @@
                         <h3>Seguro de acidentes incluso</h3>
                         <p>Oferecemos cobertura obrigatória já integrada ao processo, sem dor de cabeça para sua
                             empresa.</p>
-                        <a href="#" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+
                     </div>
 
                     <div class="service-card">
@@ -634,7 +634,7 @@
                         <h3>Gestão financeira do estágio</h3>
                         <p>Emitimos os recibos de pagamento da bolsa-auxílio e auxílio transporte de forma organizada e
                             sem complicações.</p>
-                        <a href="#" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+
                     </div>
 
                     <div class="service-card">
@@ -644,7 +644,7 @@
                         <h3>Economia e praticidade</h3>
                         <p>Sem vínculo empregatício e isento de encargos trabalhistas e previdenciários, o estágio é uma
                             opção estratégica e de baixo custo.</p>
-                        <a href="#" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+
                     </div>
 
                     <div class="service-card">
@@ -654,7 +654,7 @@
                         <h3>Acompanhamento de desempenho</h3>
                         <p>Realizamos avaliações periódicas para acompanhar a evolução do estagiário dentro da sua
                             empresa.</p>
-                        <a href="#" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+
                     </div>
 
                     <div class="service-card">
@@ -664,7 +664,7 @@
                         <h3>Responsabilidade social</h3>
                         <p>Conectamos empresas a jovens talentos da própria região, incentivando o primeiro emprego e
                             movimentando a economia local.</p>
-                        <a href="#" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+
                     </div>
 
                     <div class="service-card">
@@ -674,7 +674,7 @@
                         <h3>Suporte contínuo</h3>
                         <p>Você e seu estagiário contam com nosso apoio durante toda a jornada — orientação, ajustes e
                             atendimento humanizado.</p>
-                        <a href="#" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+
                     </div>
                 </div>
             </div>
@@ -686,8 +686,10 @@
                 <p>Entre em contato conosco para uma consultoria personalizada e descubra como nossos serviços podem
                     impulsionar os resultados do seu negócio.</p>
                 <div class="cta-buttons">
-                    <a href="#" class="btn btn-primary">Solicitar Proposta</a>
-                    <a href="#" class="btn btn-outline" style="border-color: var(--white); color: var(--white);">Falar
+                    <a href="<?php echo route_to('site.contato');?>" class="btn btn-primary">Solicitar Proposta</a>
+                    <a href="https://wa.me/5511946326003?text=Ol%C3%A1,%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es!"
+                        target="_blank" class="btn btn-outline"
+                        style="border-color: var(--white); color: var(--white);">Falar
                         com um Consultor</a>
                 </div>
             </div>

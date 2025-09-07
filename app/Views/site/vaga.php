@@ -986,41 +986,7 @@
                             </div>
                         </div>
 
-                        <?php if (!empty($vaga->requisitos)): ?>
-                        <div class="job-section">
-                            <h3>Requisitos</h3>
-                            <ul class="requirements-list">
-                                <?php 
-                                $requisitos = explode("\n", $vaga->requisitos);
-                                foreach ($requisitos as $requisito): 
-                                    if (!empty(trim($requisito))):
-                                ?>
-                                <li><?= trim($requisito) ?></li>
-                                <?php 
-                                    endif;
-                                endforeach; 
-                                ?>
-                            </ul>
-                        </div>
-                        <?php endif; ?>
 
-                        <?php if (!empty($vaga->beneficios)): ?>
-                        <div class="job-section">
-                            <h3>Benefícios</h3>
-                            <ul class="benefits-list">
-                                <?php 
-                                $beneficios = explode("\n", $vaga->beneficios);
-                                foreach ($beneficios as $beneficio): 
-                                    if (!empty(trim($beneficio))):
-                                ?>
-                                <li><?= trim($beneficio) ?></li>
-                                <?php 
-                                    endif;
-                                endforeach; 
-                                ?>
-                            </ul>
-                        </div>
-                        <?php endif; ?>
 
                         <!-- <div class="job-actions">
                             <a href="<?= route_to('site.candidatura', $vaga->id) ?>" class="btn-apply">

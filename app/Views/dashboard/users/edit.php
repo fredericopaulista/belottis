@@ -24,6 +24,22 @@
                         required>
                 </div>
 
+                <!-- Campo de senha - só mostra se for o próprio usuário -->
+                <?php if (auth()->user()->id === $user->id): ?>
+                <div class="form-group">
+                    <label>Nova Senha</label>
+                    <input type="password" name="password" class="form-control"
+                        placeholder="Deixe em branco para manter a senha atual">
+                    <small class="form-text text-muted">Preencha apenas se desejar alterar a senha</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirmar Nova Senha</label>
+                    <input type="password" name="password_confirm" class="form-control"
+                        placeholder="Confirme a nova senha">
+                </div>
+                <?php endif; ?>
+
                 <div class="form-group">
                     <label>Grupos</label>
                     <select name="groups[]" class="form-control" multiple>

@@ -116,15 +116,7 @@
                 <strong>Nova Candidatura Recebida</strong> - Um candidato acabou de enviar seu currículo através do
                 site.
             </div>
-            <div class="field">
-                <span class="field-label">ID do Candidato:</span>
-                <div class="field-value">
-                    <strong><?php echo $nome; ?></strong> -
-                    <a href="<?= site_url('admin/candidatos/visualizar/') ?><?php echo $nome; ?>" target="_blank">
-                        Ver no painel administrativo
-                    </a>
-                </div>
-            </div>
+
             <div class="section">
                 <h2 class="section-title">Dados Pessoais</h2>
                 <div class="field">
@@ -172,16 +164,7 @@
                 </div>
             </div>
 
-            <div class="section">
-                <h2 class="section-title">Documentos Anexados</h2>
-                <div class="field">
-                    <span class="field-label">Currículo:</span>
-                    <div class="field-value">[NOME_ARQUIVO_CURRICULO]</div>
-                </div>
-                <div class="attachment-note">
-                    <strong>Arquivo anexado a este e-mail.</strong>
-                </div>
-            </div>
+
 
             <div class="section">
                 <h2 class="section-title">Carta de Apresentação</h2>

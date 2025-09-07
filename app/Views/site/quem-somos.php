@@ -636,7 +636,10 @@
                     <div class="flex-image">
                         <div
                             style="background-color: #e0e0e0; height: 300px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                            <span>Imagem representando a equipe Belottis</span>
+                            <!-- <span>Imagem representando a equipe Belottis</span>
+                              -->
+                            <img src="<?php echo base_url(); ?>public/assets/img/Logo_estagio.png" height=110px"
+                                alt="Belottis Estagios">
                         </div>
                     </div>
                 </div>

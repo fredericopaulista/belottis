@@ -828,10 +828,10 @@
                                 name="habilidades"></textarea>
                         </div>
 
-                        <h2 class="form-title" style="margin-top: 40px;">Upload de Currículo</h2>
-                        <div class="form-divider"></div>
+                        <!-- <h2 class="form-title" style="margin-top: 40px;">Upload de Currículo</h2>
+                         <div class="form-divider"></div> -->
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="curriculo">Anexar Currículo (PDF, DOC ou DOCX) *</label>
                             <div class="file-upload" id="fileUploadArea">
                                 <div class="file-icon">
@@ -842,9 +842,9 @@
                                     arquivo</button>
                                 <p style="font-size: 0.9rem; margin-top: 10px;">Tamanho máximo: 5MB</p>
                             </div>
-                            <input type="file" id="curriculo" accept=".pdf,.doc,.docx" required style="display: none;"
+                            <input type="file" id="curriculo" accept=".pdf,.doc,.docx" style="display: none;"
                                 name="curriculo">
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label for="carta">Carta de Apresentação (opcional)</label>
@@ -967,67 +967,67 @@
     });
 
     // File upload functionality
-    const fileUploadArea = document.getElementById('fileUploadArea');
-    const fileInput = document.getElementById('curriculo');
+    // const fileUploadArea = document.getElementById('fileUploadArea');
+    // const fileInput = document.getElementById('curriculo');
 
-    fileUploadArea.addEventListener('click', function() {
-        fileInput.click();
-    });
+    // fileUploadArea.addEventListener('click', function() {
+    //     fileInput.click();
+    // });
 
-    fileUploadArea.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        this.style.borderColor = 'var(--secondary)';
-        this.style.backgroundColor = 'rgba(52, 152, 219, 0.1)';
-    });
+    // fileUploadArea.addEventListener('dragover', function(e) {
+    //     e.preventDefault();
+    //     this.style.borderColor = 'var(--secondary)';
+    //     this.style.backgroundColor = 'rgba(52, 152, 219, 0.1)';
+    // });
 
-    fileUploadArea.addEventListener('dragleave', function() {
-        this.style.borderColor = '#ddd';
-        this.style.backgroundColor = 'transparent';
-    });
+    // fileUploadArea.addEventListener('dragleave', function() {
+    //     this.style.borderColor = '#ddd';
+    //     this.style.backgroundColor = 'transparent';
+    // });
 
-    fileUploadArea.addEventListener('drop', function(e) {
-        e.preventDefault();
-        this.style.borderColor = '#ddd';
-        this.style.backgroundColor = 'transparent';
+    // fileUploadArea.addEventListener('drop', function(e) {
+    //     e.preventDefault();
+    //     this.style.borderColor = '#ddd';
+    //     this.style.backgroundColor = 'transparent';
 
-        if (e.dataTransfer.files.length) {
-            fileInput.files = e.dataTransfer.files;
+    //     if (e.dataTransfer.files.length) {
+    //         fileInput.files = e.dataTransfer.files;
 
-            // Update UI to show file name
-            const fileName = document.createElement('p');
-            fileName.textContent = `Arquivo selecionado: ${e.dataTransfer.files[0].name}`;
-            fileName.style.marginTop = '10px';
-            fileName.style.fontWeight = 'bold';
-            fileName.style.color = 'var(--secondary)';
+    //         // Update UI to show file name
+    //         const fileName = document.createElement('p');
+    //         fileName.textContent = `Arquivo selecionado: ${e.dataTransfer.files[0].name}`;
+    //         fileName.style.marginTop = '10px';
+    //         fileName.style.fontWeight = 'bold';
+    //         fileName.style.color = 'var(--secondary)';
 
-            // Remove previous file name if exists
-            const prevFileName = this.querySelector('p:last-of-type');
-            if (prevFileName && prevFileName.textContent.includes('Arquivo selecionado')) {
-                this.removeChild(prevFileName);
-            }
+    //         // Remove previous file name if exists
+    //         const prevFileName = this.querySelector('p:last-of-type');
+    //         if (prevFileName && prevFileName.textContent.includes('Arquivo selecionado')) {
+    //             this.removeChild(prevFileName);
+    //         }
 
-            this.appendChild(fileName);
-        }
-    });
+    //         this.appendChild(fileName);
+    //     }
+    // });
 
-    fileInput.addEventListener('change', function() {
-        if (this.files.length) {
-            // Update UI to show file name
-            const fileName = document.createElement('p');
-            fileName.textContent = `Arquivo selecionado: ${this.files[0].name}`;
-            fileName.style.marginTop = '10px';
-            fileName.style.fontWeight = 'bold';
-            fileName.style.color = 'var(--secondary)';
+    // fileInput.addEventListener('change', function() {
+    //     if (this.files.length) {
+    //         // Update UI to show file name
+    //         const fileName = document.createElement('p');
+    //         fileName.textContent = `Arquivo selecionado: ${this.files[0].name}`;
+    //         fileName.style.marginTop = '10px';
+    //         fileName.style.fontWeight = 'bold';
+    //         fileName.style.color = 'var(--secondary)';
 
-            // Remove previous file name if exists
-            const prevFileName = fileUploadArea.querySelector('p:last-of-type');
-            if (prevFileName && prevFileName.textContent.includes('Arquivo selecionado')) {
-                fileUploadArea.removeChild(prevFileName);
-            }
+    //         // Remove previous file name if exists
+    //         const prevFileName = fileUploadArea.querySelector('p:last-of-type');
+    //         if (prevFileName && prevFileName.textContent.includes('Arquivo selecionado')) {
+    //             fileUploadArea.removeChild(prevFileName);
+    //         }
 
-            fileUploadArea.appendChild(fileName);
-        }
-    });
+    //         fileUploadArea.appendChild(fileName);
+    //     }
+    // });
 
     // Form submission
     // document.getElementById('curriculum-form').addEventListener('submit', function(e) {

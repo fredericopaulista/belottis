@@ -1,4 +1,16 @@
 <?php
+// Desabilita zlib compression e inicia output buffering
+if (ini_get('zlib.output_compression')) {
+    ini_set('zlib.output_compression', 'Off');
+}
+
+// Limpa qualquer buffer existente
+while (ob_get_level() > 0) {
+    ob_end_clean();
+}
+
+ob_start();
+
 
 use CodeIgniter\Boot;
 use Config\Paths;
@@ -14,7 +26,7 @@ if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
     $message = sprintf(
         'Your PHP version must be %s or higher to run CodeIgniter. Current version: %s',
         $minPhpVersion,
-        PHP_VERSION,
+        PHP_VERSION
     );
 
     header('HTTP/1.1 503 Service Unavailable.', true, 503);

@@ -105,28 +105,29 @@ class CandidatosController extends BaseController
         return $this->response->download($caminhoArquivo, null);
     }
     
-    public function excluir($id)
-    {
-        $candidato = $this->candidatoModel->find($id);
-        
-        if (!$candidato) {
-            return redirect()->back()->with('error', 'Candidato não encontrado.');
-        }
-        
-        // Excluir arquivo físico se existir
-        if (!empty($candidato['caminho_arquivo'])) {
-            $caminhoArquivo = ROOTPATH . 'public/' . $candidato['caminho_arquivo'];
-            if (file_exists($caminhoArquivo)) {
-                unlink($caminhoArquivo);
-            }
-        }
-        
-        if ($this->candidatoModel->delete($id)) {
-            return redirect()->to('/admin/candidatos')->with('success', 'Candidato excluído com sucesso.');
-        } else {
-            return redirect()->back()->with('error', 'Erro ao excluir candidato.');
+   public function excluir($id)
+{
+    $candidato = $this->candidatoModel->find($id);
+   
+    if (!$candidato) {
+        return redirect()->back()->with('error', 'Candidato não encontrado.');
+    }
+    
+    // Excluir arquivo físico se existir
+    if (!empty($candidato['caminho_arquivo'])) {
+        $caminhoArquivo = ROOTPATH . 'public/' . $candidato['caminho_arquivo'];
+        if (file_exists($caminhoArquivo)) {
+            unlink($caminhoArquivo);
         }
     }
+    
+    // CORREÇÃO: Passar o ID como parâmetro para o método delete
+    if ($this->candidatoModel->delete($id)) {
+        return redirect()->to('/admin/candidatos')->with('success', 'Candidato excluído com sucesso.');
+    } else {
+        return redirect()->back()->with('error', 'Erro ao excluir candidato.');
+    }
+}
 
     public function new()
     {
@@ -259,7 +260,8 @@ class CandidatosController extends BaseController
             'validation' => \Config\Services::validation()
         ];
 
-        return view('admin/candidatos/edit', $data);
+        return view('dashboard/candidatos/edit', $data);
+        
     }
     /**
      * Processa a atualização do candidato

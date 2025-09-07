@@ -12,135 +12,99 @@ class CurriculoController extends Controller
     {
         $this->model = new CandidatoModel();
     }
-    public function enviarCurriculo()
-    {
-        // Obter dados do formulário
-        $dados = $this->request->getPost();
-        $arquivo = $this->request->getFile('curriculo');
-        
-        // Validar dados
-        $validation = \Config\Services::validation();
-        $validation->setRules([
-            'nome' => 'required|min_length[3]',
-            'email' => 'required|valid_email',
-            'telefone' => 'required',
-            'formacao' => 'required',
-            'curso' => 'required',
-            'instituicao' => 'required',
-            'experiencia' => 'required|min_length[10]',
-            'habilidades' => 'required|min_length[10]',
-            'curriculo' => 'uploaded[curriculo]|max_size[curriculo,5120]|ext_in[curriculo,pdf,doc,docx]'
-        ]);
-        
-        if (!$validation->run($dados)) {
-            return redirect()->back()->withInput()->with('error', 'Por favor, preencha todos os campos obrigatórios corretamente.');
-        }
-        
-        // Processar upload do arquivo
-        $nomeArquivo = '';
-        $caminhoArquivo = '';
-        
-        if ($arquivo->isValid() && !$arquivo->hasMoved()) {
-            // Criar nome personalizado baseado no nome do candidato
-            $nomeCandidato = $dados['nome'];
-            $nomeSanitizado = $this->sanitizeFileName($nomeCandidato);
-            $extensao = $arquivo->getClientExtension();
-            $novoNome = $nomeSanitizado . '-' . time() . '.' . $extensao;
-            
-            // Criar diretório se não existir
-            $uploadPath = ROOTPATH . 'public/uploads/curriculos/';
-            if (!is_dir($uploadPath)) {
-                mkdir($uploadPath, 0755, true);
-            }
-            
-            $caminhoArquivo = 'uploads/curriculos/' . $novoNome;
-            $nomeArquivo = $novoNome;
-            
-            // Mover o arquivo
-            if (!$arquivo->move(ROOTPATH . 'public/uploads/curriculos/', $novoNome)) {
-                log_message('error', 'Erro ao mover arquivo: ' . $arquivo->getErrorString());
-                return redirect()->back()->withInput()->with('error', 'Erro ao fazer upload do arquivo.');
-            }
+   public function enviarCurriculo()
+{
+    // Obter dados do formulário
+    $dados = $this->request->getPost();
+    
+    // Validar dados (removida validação de arquivo)
+    $validation = \Config\Services::validation();
+    $validation->setRules([
+        'nome' => 'required|min_length[3]',
+        'email' => 'required|valid_email',
+        'telefone' => 'required',
+        'formacao' => 'required',
+        'curso' => 'required',
+        'instituicao' => 'required',
+        'experiencia' => 'required|min_length[5]',
+        'habilidades' => 'required|min_length[5]'
+        // Removido: 'curriculo' => 'uploaded[curriculo]|max_size[curriculo,5120]|ext_in[curriculo,pdf,doc,docx]'
+    ]);
+    
+    if (!$validation->run($dados)) {
+        return redirect()->back()->withInput()->with('error', 'Por favor, preencha todos os campos obrigatórios corretamente.');
+    }
+    
+    // Salvar/Atualizar no banco de dados
+    $candidatoModel = new CandidatoModel();
+    
+    // Verificar se já existe candidato com este email
+    $candidatoExistente = $candidatoModel->where('email', $dados['email'])->first();
+    
+    $dadosCandidato = [
+        'nome' => $dados['nome'],
+        'email' => $dados['email'],
+        'telefone' => $dados['telefone'],
+        'formacao_academica' => $dados['formacao'],
+        'curso' => $dados['curso'],
+        'ano_conclusao' => $dados['ano_conclusao'],
+        'linkedin' => $dados['linkedin'],
+        'cidade' => $dados['cidade'], 
+        'data_nascimento' => $dados['data_nascimento'], 
+        'estado' => $dados['estado'], 
+        'portfolio' => $dados['portfolio'], 
+        'instituicao' => $dados['instituicao'],
+        'experiencia_profissional' => $dados['experiencia'],
+        'habilidades_competencias' => $dados['habilidades'],
+        'nome_arquivo_curriculo' => null, // Definido como null
+        'caminho_arquivo' => null, // Definido como null
+        'carta_apresentacao' => $dados['carta_apresentacao'] ?? '',
+        'ip_candidato' => $this->request->getIPAddress(),
+        'status' => 'novo',
+        'atualizado_em' => date('Y-m-d H:i:s')
+    ];
+    
+    try {
+        if ($candidatoExistente) {
+            // ATUALIZAR registro existente
+            $candidatoId = $candidatoExistente['id'];
+            $candidatoModel->update($candidatoId, $dadosCandidato);
+            log_message('info', 'Candidato ATUALIZADO no banco. ID: ' . $candidatoId . ', Email: ' . $dados['email']);
+            $acao = 'atualizado';
         } else {
-            log_message('error', 'Arquivo inválido ou já movido: ' . $arquivo->getError());
-            return redirect()->back()->withInput()->with('error', 'Arquivo inválido.');
+            // INSERIR novo registro
+            $candidatoModel->insert($dadosCandidato);
+            $candidatoId = $candidatoModel->getInsertID();
+            log_message('info', 'Candidato INSERIDO no banco. ID: ' . $candidatoId . ', Email: ' . $dados['email']);
+            $acao = 'cadastrado';
         }
         
-        // Salvar/Atualizar no banco de dados
-        $candidatoModel = new CandidatoModel();
-        
-        // Verificar se já existe candidato com este email
-        $candidatoExistente = $candidatoModel->where('email', $dados['email'])->first();
-        
-        $dadosCandidato = [
+        // Carregar template de email (sem informações de arquivo)
+        $template = view('site/emails/curriculo', [
             'nome' => $dados['nome'],
             'email' => $dados['email'],
             'telefone' => $dados['telefone'],
-            'formacao_academica' => $dados['formacao'],
+            'formacao' => $dados['formacao'],
             'curso' => $dados['curso'],
-            'ano_conclusao' => $dados['ano_conclusao'],
-            'linkedin' => $dados['linkedin'],
-            'cidade' => $dados['cidade'], 
-            'data_nascimento' => $dados['data_nascimento'], 
-            'estado' => $dados['estado'], 
-            'portfolio' => $dados['portfolio'], 
             'instituicao' => $dados['instituicao'],
-            'experiencia_profissional' => $dados['experiencia'],
-            'habilidades_competencias' => $dados['habilidades'],
-            'nome_arquivo_curriculo' => $nomeArquivo,
-            'caminho_arquivo' => $caminhoArquivo,
-            'carta_apresentacao' => $dados['carta_apresentacao'] ?? '',
-            'ip_candidato' => $this->request->getIPAddress(),
-            'status' => 'novo',
-            'atualizado_em' => date('Y-m-d H:i:s') // Campo para tracking de atualizações
-        ];
+            'experiencia' => nl2br($dados['experiencia']),
+            'habilidades' => nl2br($dados['habilidades']),
+            'carta_apresentacao' => !empty($dados['carta_apresentacao']) ? nl2br($dados['carta_apresentacao']) : 'Não informada',
+            'data' => date('d/m/Y H:i:s'),
+            'ip' => $this->request->getIPAddress(),
+            'ID_CANDIDATO' => $candidatoId,
+            'ano' => date('Y'),
+            'ACAO' => $acao
+        ]);
         
-        try {
-            if ($candidatoExistente) {
-                 // ATUALIZAR registro existente
-                $candidatoId = $candidatoExistente['id'];
-                $candidatoModel->update($candidatoId, $dadosCandidato);
-                log_message('info', 'Candidato ATUALIZADO no banco. ID: ' . $candidatoId . ', Email: ' . $dados['email']);
-                $acao = 'atualizado';
-            
-                
-            } else {
-                // INSERIR novo registro
-                $candidatoModel->insert($dadosCandidato);
-                $candidatoId = $candidatoModel->getInsertID();
-                log_message('info', 'Candidato INSERIDO no banco. ID: ' . $candidatoId . ', Email: ' . $dados['email']);
-                $acao = 'cadastrado';
-            }
-            
-            // Carregar template de email
-            $template = view('site/emails/curriculo', [
-                'nome' => $dados['nome'],
-                'email' => $dados['email'],
-                'telefone' => $dados['telefone'],
-                'formacao' => $dados['formacao'],
-                'curso' => $dados['curso'],
-                'instituicao' => $dados['instituicao'],
-                'experiencia' => nl2br($dados['experiencia']),
-                'habilidades' => nl2br($dados['habilidades']),
-                'carta_apresentacao' => !empty($dados['carta_apresentacao']) ? nl2br($dados['carta_apresentacao']) : 'Não informada',
-                'NOME_ARQUIVO_CURRICULO' => $nomeArquivo,
-                'FORMATO_ARQUIVO' => strtoupper($arquivo->getClientExtension()),
-                'TAMANHO_ARQUIVO' => $this->formatarTamanhoArquivo($arquivo->getSize()),
-                'data' => date('d/m/Y H:i:s'),
-                'ip' => $this->request->getIPAddress(),
-                'ID_CANDIDATO' => $candidatoId,
-                'ano' => date('Y'),
-                'ACAO' => $acao // Novo campo para informar se foi cadastro ou atualização
-            ]);
-            
-            // Configurar e enviar email
-            $email = \Config\Services::email();
+        // Configurar e enviar email
+        $email = \Config\Services::email();
 
-            $config = [
-                'protocol' => 'smtp',
-                 'SMTPHost' => 'mail.advogadocontagem.com.br',
-            'SMTPUser' => 'contato@advogadocontagem.com.br',
-            'SMTPPass' => 'Davi2014!',
+        $config = [
+            'protocol' => 'smtp',
+            'SMTPHost' => 'smtp.kinghost.net',
+            'SMTPUser' => 'noreply@belottis.com.br',
+            'SMTPPass' => 'auaDgMx7ema!Th',
             'SMTPPort' => 465,
             'wordWrap' => true,
             'mailType' => 'html',
@@ -150,41 +114,40 @@ class CurriculoController extends Controller
 
         $email->initialize($config);
 
-        $email->setFrom('contato@advogadocontagem.com.br', $this->request->getGetPost('nome'));
-        $email->setTo('fredericopaulista02@gmail.com');
+        $email->setFrom('noreply@belottis.com.br', $dados['nome']);
+        $email->setTo('contato@belottis.com.br');
         $email->setReplyTo('contato@belottis.com.br', 'Belottis Estágio');
-        $email->setCC($this->request->getGetPost('email'));
-            $email->setSubject('Currículo ' . ($acao == 'atualizado' ? 'Atualizado' : 'Recebido') . ' - ' . $dados['nome']);
-            $email->setMessage($template);
+        // $email->setCC($dados['email']);
+        $email->setSubject('Currículo ' . ($acao == 'atualizado' ? 'Atualizado' : 'Recebido') . ' - ' . $dados['nome']);
+        $email->setMessage($template);
 
-            // Anexar currículo
-            if (!empty($caminhoArquivo) && file_exists(ROOTPATH . 'public/' . $caminhoArquivo)) {
-                $email->attach(ROOTPATH . 'public/' . $caminhoArquivo);
-            }
+        // REMOVIDO: Anexo do currículo
+        // if (!empty($caminhoArquivo) && file_exists(ROOTPATH . 'public/' . $caminhoArquivo)) {
+        //     $email->attach(ROOTPATH . 'public/' . $caminhoArquivo);
+        // }
 
-            // Tentar enviar email
-            if ($email->send()) {
-                log_message('info', 'Email enviado com sucesso para o candidato ID: ' . $candidatoId);
-                 $mensagem = $acao == 'atualizado' 
-            ? 'Currículo atualizado com sucesso! Suas informações foram renovadas em nosso banco de dados.' 
-            : 'Currículo enviado com sucesso! Agora você faz parte do nosso banco de talentos.';
-        
-                return redirect()->back()->with('success', $mensagem);
-            } else {
-                log_message('warning', 'Falha no envio de email, mas currículo salvo. ID: ' . $candidatoId);
-    
-    $mensagem = $acao == 'atualizado' 
-        ? 'Currículo atualizado com sucesso! Suas informações foram renovadas em nosso banco de dados.' 
-        : 'Currículo enviado com sucesso! Agora você faz parte do nosso banco de talentos.';
-    
-    return redirect()->back()->with('success', $mensagem);
-            }
+        // Tentar enviar email
+        if ($email->send()) {
+            log_message('info', 'Email enviado com sucesso para o candidato ID: ' . $candidatoId);
+            $mensagem = $acao == 'atualizado' 
+                ? 'Currículo atualizado com sucesso! Suas informações foram renovadas em nosso banco de dados.' 
+                : 'Currículo enviado com sucesso! Agora você faz parte do nosso banco de talentos.';
             
-        } catch (\Exception $e) {
-             log_message('error', 'Erro ao salvar/atualizar candidato: ' . $e->getMessage());
-    return redirect()->back()->withInput()->with('error', 'Houve um problema ao enviar seu currículo. Tente novamente mais tarde.');
+            return redirect()->back()->with('success', $mensagem);
+        } else {
+            log_message('warning', 'Falha no envio de email, mas currículo salvo. ID: ' . $candidatoId);
+            $mensagem = $acao == 'atualizado' 
+                ? 'Currículo atualizado com sucesso! Suas informações foram renovadas em nosso banco de dados.' 
+                : 'Currículo enviado com sucesso! Agora você faz parte do nosso banco de talentos.';
+            
+            return redirect()->back()->with('success', $mensagem);
         }
+        
+    } catch (\Exception $e) {
+        log_message('error', 'Erro ao salvar/atualizar candidato: ' . $e->getMessage());
+        return redirect()->back()->withInput()->with('error', 'Houve um problema ao enviar seu currículo. Tente novamente mais tarde.');
     }
+}
     
     
     private function formatarTamanhoArquivo($bytes)

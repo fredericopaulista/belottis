@@ -84,9 +84,9 @@ class SiteController extends BaseController
 
         $config = [
              'protocol' => 'smtp',
-            'SMTPHost' => 'mail.advogadocontagem.com.br',
-            'SMTPUser' => 'contato@advogadocontagem.com.br',
-            'SMTPPass' => 'Davi2014!',
+             'SMTPHost' => 'smtp.kinghost.net',
+            'SMTPUser' => 'noreply@belottis.com.br',
+            'SMTPPass' => 'auaDgMx7ema!Th',
             'SMTPPort' => 465,
             'wordWrap' => true,
             'mailType' => 'html',
@@ -96,11 +96,10 @@ class SiteController extends BaseController
 
         $email->initialize($config);
 
-        $email->setFrom('contato@advogadocontagem.com.br', $this->request->getGetPost('name'));
-        $email->setTo('fredericopaulista02@gmail.com');
+        $email->setFrom('noreply@belottis.com.br', $this->request->getGetPost('name'));
+        $email->setTo('contato@belottis.com.br');
         $email->setReplyTo('contato@belottis.com.br', 'Belottis Estágio');
-        $email->setCC('fredericopaulista@gmail.com');
-        // $email->setBCC('them@their-example.com');
+        // $email->setCC('fredericopaulista@gmail.com');
 
         $email->setSubject($this->request->getGetPost('subject'));
         $email->setMessage($template);
